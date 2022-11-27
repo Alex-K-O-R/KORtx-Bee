@@ -13,8 +13,8 @@ Thanks for visiting and reading. Have a good luck!
 
 Some screenshots:
 
-![My Remote Image](https://drive.google.com/file/d/1PA9zf8M9M6WMKbr2ZKe8osd0X3AkRGzD/view?usp=sharing)
+![My Image](Screenshots/1.jpg)
 
-![My Remote Image](https://drive.google.com/file/d/1IDv4mikh0dBuTGTTcM_gHjQTBaY9c8Wj/view?usp=sharing)
+![My Image](Screenshots/2.jpg)
 
-![My Remote Image](https://drive.google.com/file/d/1Ya3V7Q-kdWXNWqFmPkP4knvs8xtFqlSG/view?usp=sharing)
+![My Image](Screenshots/3.jpg)
