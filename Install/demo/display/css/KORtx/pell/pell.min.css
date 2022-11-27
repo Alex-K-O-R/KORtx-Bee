@@ -1,0 +1,188 @@
+/* Pell Андрей, а чего здесь делает модал? И почему модал не по центру раскрывается? */
+.pell{
+	border:1px solid hsla(0,0%,4%,.1)
+}
+.pell,.pell-content{
+	box-sizing:border-box
+}
+
+.pell.ab_editblock{
+    display: block;
+    width: 100%;
+    height: 90%;
+    position: relative;
+    clear: both;
+    margin-bottom: 2em;
+}
+
+.pell .pell-content{
+    height: 8.8em;
+    outline: 0;
+    overflow-y: auto;
+    padding: 10px;
+    word-break: break-all;
+}
+
+.pell .pell-actionbar{
+    background-color: rgb(239, 236, 236);
+	border-bottom:1px solid hsla(0,0%,4%,.1)
+    height: 76px;
+    min-height: 76px;
+}
+
+.pell.ab_editblock .ab_textedit {
+    height: 100%;
+}
+
+.pell .pell-button{
+    display: inline-block;
+    box-sizing: border-box;
+    color: rgb(72, 160, 132);
+    cursor: pointer;
+    font-family: Ubuntu, Arial, sans-serif;
+    font-weight: 700;
+    list-style-image: none;
+    list-style-position: outside;
+    list-style-type: none;
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-color: rgb(239, 236, 236);
+    background-image: none;
+    background-origin: padding-box;
+    background-position: 0% 0%;
+    background-repeat: repeat;
+    background-size: auto;
+    border: 0;
+    font-size: 1.2em;
+    line-height: 12px;
+    height: 36px;
+    vertical-align: middle;
+    padding: 12px;
+}
+
+
+.pell-button-selected{
+	background-color:#f0f0f0
+}
+/* Button */
+.btn {
+	border: none;
+	color: white;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	vertical-align:middle;
+}
+.btn-blue {
+	background-color: #008CBA;
+}
+.btn-green {
+	background-color: #4CAF50;
+}
+.btn-red {
+	background-color: #f44336;
+}
+.btn-gray {
+	background-color: #e7e7e7;
+	color:#000000;
+}
+.btn-black {
+	background-color: #555555;
+}
+.btn-s10 {
+	font-size: 10px;
+}
+.btn-s12 {
+	font-size: 12px;
+}
+.btn-s14 {
+	font-size: 14px;
+}
+.btn-s16 {
+	font-size: 16px;
+}
+.btn-s20 {
+	font-size: 20px;
+}
+.btn-s24 {
+	font-size: 24px;
+}
+.btn-10p24 {
+	padding: 10px 24px;
+}
+.btn-12p28 {
+	padding: 12px 28px;
+}
+.btn-b2 {
+	border-radius: 2px;
+}
+.btn-b4 {
+	border-radius: 4px;
+}
+.btn-b6 {
+	border-radius: 6px;
+}
+.btn-b8 {
+	border-radius: 8px;
+}
+.btn-b10 {
+	border-radius: 10px;
+}
+.btn-b12 {
+	border-radius: 12px;
+}
+.btn-bdr-green {
+	background-color: white;
+	color: black;
+	border: 2px solid #4CAF50;
+}
+.btn-bdr-blue {
+	background-color: white;
+	color: black;
+	border: 2px solid #008CBA;
+}
+.btn-bdr-red {
+	background-color: white;
+	color: black;
+	border: 2px solid #f44336;
+}
+.btn-bdr-gray {
+	background-color: white;
+	color: black;
+	border: 2px solid #e7e7e7;
+}
+.btn-bdr-black {
+	background-color: white;
+	color: black;
+	border: 2px solid #555555;
+}
+.btn-block{
+	width:100%;
+}
+/* Container */
+.flex-container{
+	display: flex;
+	flex-wrap: nowrap;
+}
+
+
+div[id^="text-editor"] {border: 1px solid rgba(34,36,38,.15); color: rgba(0,0,0,.87); border-radius: .28571429rem;}
+div[id^="text-editor"] .pell-content {max-height: 200px; overflow: auto; min-height: 5em; padding: 10px;}
+div[id*="-editor"] .pell-content a{color:blue; text-decoration-line: underline;}
+div[id*="-editor"] .pell-content ol{list-style: decimal;}
+div[id*="-editor"] .pell-content ul{list-style: circle;}
+div[id*="-editor"] .pell-content li{margin-left: 30px;}
+div[id*="-editor"] .pell-actionbar {background: var(--global_color_menu_alt); min-height: unset; padding:5px; border-radius: 0.285714rem 0.285714rem 0 0;}
+div[id*="editor"] .pell-button {background:var(--global_color); margin: 1px; height: unset; padding:4px 6px; cursor: pointer; min-width: 25px; font-size: .8em; color:#fff;}
+div[id*="-editor"] .pell-button:hover {background: var(--global_color_menu);}
+div[id*="-editor"] .pell-button b, div[id^="text-editor"] .pell-button i, div[id^="text-editor"] .pell-button u{line-height: 1em;}
+
+@media(min-width: 480px) {
+
+    .pell .pell-content{
+        height: 13.8em;
+    }
+}

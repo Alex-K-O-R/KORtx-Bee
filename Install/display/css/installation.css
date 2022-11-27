@@ -1,0 +1,57 @@
+.logo.text.infinum {
+    padding-left: 2px;
+    font-size: 250%;
+    text-align: end;
+    vertical-align: sub;
+    display: inline-block;
+}
+
+.kortx.reg.form {
+    width: 90%;
+    min-width: 320px;
+    margin: 6vh auto 25vh auto;
+    text-align: center;
+}
+
+.kortx.reg.form .field {
+    margin: 0.5em 0 1em 0;
+}
+
+.kortx.reg.form h1, .kortx.reg.form .regular {
+    text-align: left;
+}
+
+.kortx.reg.form .registration {
+    margin-top: 4vh;
+}
+
+.kortx.reg.form .registration .db-icon {
+    height: 54px;
+    margin-top: 4px;
+}
+
+.kortx.reg.form .registration .field label {
+    display: block;
+}
+
+.kortx.reg.form .registration .split {
+    display: inline-block;
+    vertical-align: top;
+    padding: 0 2em 0 2em;
+}
+
+.kortx.reg.form .registration .split.lborder {
+    border-left: 1px solid #d3a45b;
+    margin-bottom: 2vh;
+}
+
+.kortx.reg.form .input-with-icon {
+    display: inline-block;
+}
+
+
+.kortx.reg.form .input-tooltip.input-icon svg{
+    height: 20px;
+    vertical-align: middle;
+    margin-left: 8px;
+}

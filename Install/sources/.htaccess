@@ -1,0 +1,7 @@
+RewriteEngine On
+AddDefaultCharset UTF-8
+RewriteCond %{QUERY_STRING}     ^$              [OR]
+RewriteRule ^/$       /index.php%1      [NC,L,R=301]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule .* index.php [L]

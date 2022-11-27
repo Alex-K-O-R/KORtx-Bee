@@ -1,0 +1,58 @@
+.onexpo-form {
+    width: 20vw;
+    min-width: 320px;
+    margin: 15vh auto 25vh auto;
+}
+.onexpo-form > .field > label {
+    color: #426e88!important;
+}
+.onexpo-form-btn {
+    height: 40px;
+    width: 20vw;
+    min-width: 320px;
+    background-color: #426e88;
+    color: #ffffff;
+    font-size: 100%;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.onexpo-form-btn:hover {
+    background-color: #549ab1;
+}
+.field.login-link {
+    font-weight: bold;
+    text-align: center!important;
+    margin-top: 8px!important;
+    color: #999999;
+}
+.field.login-link:hover a {
+    color: #426e88;
+}
+.input-with-icon {
+    position: relative;
+}
+.input-with-icon input {
+    padding-left: 2.2rem!important;
+    color: #4d4d4d!important;
+    height: 43px;
+}
+.input-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 2.2rem;
+    padding-bottom: 2px;
+}
+.input-icon:not(.input-tooltip) {
+    left: 0;
+}
+.input-icon > svg > path {
+    fill: #cccccc;
+}
+.input-tooltip {
+    right: -2.4rem;
+    cursor: pointer;
+}

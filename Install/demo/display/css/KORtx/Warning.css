@@ -1,0 +1,53 @@
+.notice {
+    clear: both;
+    width: auto;
+    position: relative;
+    background-color: rgb(237, 236, 236);
+    border: 1px dashed #426e9d;
+    padding: 6px 6px 12px 26px;
+    margin: 6px 10px 30px;
+    min-height: 50px;
+    line-height: 130%;
+}
+
+.notice h2 {
+    font-size: 1.2em;
+    margin-bottom: 0.5em;
+}
+
+.notice .close {
+    color: red;
+    width: 30px;
+    height: 30px;
+    font-size: 30px;
+    position: absolute;
+    cursor: pointer;
+    top: 10px;
+    right: 5px;
+}
+
+.notice ul {
+    margin-left: 3em;
+    list-style: unset;
+}
+
+.notice p {
+    vertical-align: middle;
+    text-indent: 0px;
+}
+
+.notice p a {
+    color: #24b617;
+    text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+    .notice .close {
+        top: 10px;
+        right: 0px;
+    }
+
+    .notice h2 {
+        margin-top: 35px;
+    }
+}

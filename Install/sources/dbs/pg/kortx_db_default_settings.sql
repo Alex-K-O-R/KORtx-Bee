@@ -1,0 +1,6 @@
+﻿
+SET NAMES 'UTF8';
+SET TIME ZONE '+00:00';
+
+--DROP DATABASE IF EXISTS {prefix}_series;
+CREATE DATABASE {prefix}_series ENCODING 'UTF8';-- LC_COLLATE = 'en_US.UTF-8' LC_CTYPE = 'en_US.UTF-8';

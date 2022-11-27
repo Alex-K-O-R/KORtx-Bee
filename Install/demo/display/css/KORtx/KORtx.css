@@ -1,0 +1,26 @@
+.KORtx_logo .logo.infinum{
+    display: inline-block;
+    font-size: 220%;
+    line-height: 61%;
+    vertical-align: bottom;
+    padding-left: 1px;
+}
+
+.KORtx_logo .Bee{
+    vertical-align: middle;
+    display: block;
+}
+
+.KORtx_logo .Bee img{
+    float: left;
+    margin-top: 6px;
+}
+
+.KORtx_logo .text{
+    position: relative;
+    left: 4px;
+}
+
+.KORtx_logo .text .span{
+    font-size: 50%;
+}
