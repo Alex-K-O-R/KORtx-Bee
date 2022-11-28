@@ -1,7 +1,9 @@
 # KORtx Bee
  Comfy framework with PostgreSQL and MariaDB support.
 
-You observe the installer. Lots of information would become available after the installation is complete.
+You're observing the installer. Simply copy files to the host, load index.php, then go through. Lots of information would become available after the installation is complete.
+
+Minimal requirements are: Php 7.2 and ( PostgreSQL 9.5 or MariaDB 10.4 ).
 
 KORtx Bee project is free of use (MIT). I will be glad if while using KORtx Bee, you will save a small credits to an author in commentaries.
 
