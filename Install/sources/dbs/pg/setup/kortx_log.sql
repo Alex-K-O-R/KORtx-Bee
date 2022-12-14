@@ -19,5 +19,5 @@ CREATE TABLE {prefix}_log (
     priority character varying,
     old_value character varying,
     new_value character varying,
-    date timestamp without time zone DEFAULT now() NOT NULL
+    date timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
 );

@@ -24,9 +24,8 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/core/_core/dba/DBConnProvider.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/core/_core/dba/DBAccessGeneric.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/core/_core/dba/FilterToDbOperatorConverter.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/core/_core/dba/FilterConverter.php');
-include_once($_SERVER['DOCUMENT_ROOT'].'/core/_core/dba/models/inner/SecurityMDL.php');
-Loader::load_php_recursive($_SERVER['DOCUMENT_ROOT'].'/core/_core/dba');
-Loader::load_php_recursive($_SERVER['DOCUMENT_ROOT'].'/core/dba');
+include_once($_SERVER['DOCUMENT_ROOT'].'/core/_core/models/inner/SecurityMDL.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/core/dba/DBALoader.php');
 
 // Системные константы
 Loader::load_php_recursive($_SERVER['DOCUMENT_ROOT'].'/constants');
@@ -34,8 +33,6 @@ Loader::load_php_recursive($_SERVER['DOCUMENT_ROOT'].'/constants');
 //Утилиты
 Loader::load_php_recursive($_SERVER['DOCUMENT_ROOT'].'/core/_core/utilities');
 Loader::load_php_recursive($_SERVER['DOCUMENT_ROOT'].'/core/utilities');
-
-
 
 // Классы визуализатора;
 include_once($_SERVER['DOCUMENT_ROOT'].'/core/fabrics/PageThemes.php');
@@ -46,5 +43,6 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/core/fabrics/Pages.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/core/_core/AppFilter.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/core/_core/Application.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/core/_core/ModelProcessor.php');
+Loader::load_php_recursive($_SERVER['DOCUMENT_ROOT'].'/core/');
 include_once($_SERVER['DOCUMENT_ROOT'].'/WebUI.php');
 ?>

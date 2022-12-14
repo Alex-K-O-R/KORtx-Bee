@@ -9,7 +9,7 @@ $rootCrPath = $usrCrPath.'/_core'; // this is auto generated files by the instal
 include_once($InstallationSourcePath.'/sources/dbs/dba/classes/FileDBA.php');
 include_once($InstallationSourcePath.'/sources/utilities/CIES.php');
 include_once($InstallationSourcePath.'/constants/AppSettings.php');
-include_once($InstallationSourcePath.'/demo/core/dba/DbaLoader.php');
+include_once($InstallationSourcePath.'/demo/core/dba/DBALoader.php');
 include_once($InstallationSourcePath.'/sources/Application.php');
 
 use app\dba\FileDBA;
@@ -18,7 +18,7 @@ use app\Application;
 
 session_start();
 error_reporting(E_CORE_ERROR, E_ERROR, E_PARSE, E_USER_ERROR);
-//error_reporting(E_ALL);
+error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 if(($lang = CIS::l($_GET, 'lang'))){
@@ -56,6 +56,9 @@ if($db_type == 'pgsql'){
 if($db_type == 'mysql'){
     $db_src = $db_sec.'/my';
 }
+if($db_type == 'lite3'){
+    $db_src = $db_sec.'/l3';
+}
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -72,25 +75,25 @@ if($db_type == 'mysql'){
 </HEAD>
 <BODY>
 <main id="expo-pages" class="page-registration">
-    <div class="container">
-        <ul class="breadcrumbs">
-            <li class="breadcrumbs-item"><a href="/?lang=RU" class="breadcrumbs-link">Русский</a></li>
-            <li class="breadcrumbs-item"><a href="/?lang=EN" class="breadcrumbs-link">English</a></li>
-        </ul>
-    </div>
-    <!--
+<div class="container">
+    <ul class="breadcrumbs">
+        <li class="breadcrumbs-item"><a href="/?lang=RU" class="breadcrumbs-link">Русский</a></li>
+        <li class="breadcrumbs-item"><a href="/?lang=EN" class="breadcrumbs-link">English</a></li>
+    </ul>
+</div>
+<!--
 
     <h5>-- <?=$step?> --</h5>
 
     -->
-    <form method="POST" action="/" class="ui small form kortx reg form">
+<form method="POST" action="/" class="ui small form kortx reg form">
 <?
 $InstallationIsFinished = false;
 
 switch($step){
     case 0:
         include_once($InstallationSourcePath.'/steps/1/index.php');
-    break;
+        break;
 
     case 1:
         if($project_url){
@@ -117,12 +120,12 @@ switch($step){
         } else {
             include_once($InstallationSourcePath.'/steps/1/index.php');
         }
-    break;
+        break;
 
 
 
     case 2:
-        if($db_host && $db_user && $db_pass && $db_type){
+        if($db_host && $db_type){
             if(is_dir($db_src)){
                 $copies = FileDBA::getFilesPathsListOfTypeInDirectory($InstallationSourcePath.'/constants');
                 FileDBA::createDirectoryWithRights($_SERVER['DOCUMENT_ROOT'].'/constants');
@@ -138,8 +141,8 @@ switch($step){
                     $_SERVER['DOCUMENT_ROOT'].'/constants/DBSettings.php'
                     , array(
                         'adr' => $db_host
-                        ,'usr' => $db_user
-                        ,'pass' => $db_pass
+                    ,'usr' => isset($db_user)?$db_user:''
+                    ,'pass' => isset($db_pass)?$db_pass:''
                     )
                     , true
                 );
@@ -149,7 +152,7 @@ switch($step){
             include_once($InstallationSourcePath.'/steps/2/index.php');
         }
 
-    break;
+        break;
 
     case 3:
         if($project_keyword){
@@ -200,7 +203,7 @@ switch($step){
         } else {
             include_once($InstallationSourcePath.'/steps/3/index.php');
         }
-    break;
+        break;
 
     case 4:
         if($adm_login && $adm_pass){
@@ -230,8 +233,8 @@ switch($step){
             }
 
             $mdl_src = $InstallationSourcePath.'/sources/models';
-            FileDBA::createDirectoryWithRights($rootCrPath.'/dba/models');
-            FileDBA::copyRecursive($mdl_src, $rootCrPath.'/dba/models');
+            FileDBA::createDirectoryWithRights($rootCrPath.'/models');
+            FileDBA::copyRecursive($mdl_src, $rootCrPath.'/models');
 
             $dem_cr_src = $InstallationSourcePath.'/demo/core';
             FileDBA::createDirectoryWithRights($usrCrPath);
@@ -256,14 +259,14 @@ switch($step){
         } else {
             include_once($InstallationSourcePath.'/steps/4/index.php');
         }
-    break;
+        break;
 
     case 5:
         if(CIS::l($_POST, 'add_demo', false)){
             include_once($InstallationSourcePath.'/inc/include_dbconstants.php');
             include_once($InstallationSourcePath.'/inc/include_dbas.php');
 
-            FileDBA::createDirectoryWithRights(FileDBA::FILE_DIRECTORY());
+            FileDBA::createDirectoryWithRights(FileDBA::DIR_PATH());
 
             $UsrDba = new \app\dba\UserDBA();
             $DBModCntxt = new \app\dba\DBModificationContext(-1, NULL, $UsrDba, \app\dba\constants\DBChanges::auto);
@@ -296,38 +299,38 @@ switch($step){
             , array('site_url' => $project_url)
             , true
         );
-
+//exit;
         copy($InstallationSourcePath.'/inc/Done.txt', $InstallationSourcePath.'/Done.txt');
         $InstallationIsFinished = true;
-    break;
+        break;
 }
 ?>
 <? if($InstallationIsFinished) {?>
-<div class="registration">
-    <h2>KORtx Bee<?=Application::GlobalTransliter(array('RU'=>' успешно установлен.', 'EN'=>' was successfully installed.'), $lang)?></h2>
-    <p>
-        <a href="/"><?=Application::GlobalTransliter(array('RU'=>'Добро пожаловать', 'EN'=>'Welcome'), $lang)?>!</a>
-    </p>
-</div>
+    <div class="registration">
+        <h2>KORtx Bee<?=Application::GlobalTransliter(array('RU'=>' успешно установлен.', 'EN'=>' was successfully installed.'), $lang)?></h2>
+        <p>
+            <a href="/"><?=Application::GlobalTransliter(array('RU'=>'Добро пожаловать', 'EN'=>'Welcome'), $lang)?>!</a>
+        </p>
+    </div>
 <? } ?>
 <br/><br/>
-        <? if($project_url!==null) {?>
-        <input type="text" name="project_url" value="<?=$project_url?>"/>
-        <? } ?>
-        <? if($db_host && $db_user && $db_pass && $db_type) {?>
-        <input type="text" name="db_host" value="<?=$db_host?>"/>
-        <input type="text" name="db_user" value="<?=$db_user?>"/>
-        <input type="password" name="db_pass" value="<?=$db_pass?>"/>
-        <input type="text" name="db_type" value="<?=$db_type?>"/>
-        <? } ?>
-        <? if($project_keyword!==null) {?>
-        <input type="text" name="project_keyword" value="<?=$project_keyword?>"/>
-        <? } ?>
-        <? if($adm_login && $adm_pass) {?>
-        <input type="text" name="adm_login" value="<?=$adm_login?>"/>
-        <input type="password" name="adm_pass" value="<?=$adm_pass?>"/>
-        <? } ?>
-    </form>
+<? if($project_url!==null) {?>
+    <input type="text" name="project_url" value="<?=$project_url?>"/>
+<? } ?>
+<? if($db_host && $db_type) {?>
+    <input type="text" name="db_host" value="<?=$db_host?>"/>
+    <input type="text" name="db_user" value="<?=$db_user?>"/>
+    <input type="password" name="db_pass" value="<?=$db_pass?>"/>
+    <input type="text" name="db_type" value="<?=$db_type?>"/>
+<? } ?>
+<? if($project_keyword!==null) {?>
+    <input type="text" name="project_keyword" value="<?=$project_keyword?>"/>
+<? } ?>
+<? if($adm_login && $adm_pass) {?>
+    <input type="text" name="adm_login" value="<?=$adm_login?>"/>
+    <input type="password" name="adm_pass" value="<?=$adm_pass?>"/>
+<? } ?>
+</form>
 </main>
 
 <div class="footer-bottom__container">

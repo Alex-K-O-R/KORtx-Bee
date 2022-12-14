@@ -12,6 +12,6 @@ CREATE TABLE "public"."{prefix}_security" (
     "login" character varying,
     "pass" character varying,
     "activated" boolean DEFAULT false NOT NULL,
-    "add_date" timestamp without time zone DEFAULT now() NOT NULL,
+    "add_date" timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     "last_login_date" timestamp without time zone NULL DEFAULT NULL
 ) WITH (oids = false);

@@ -9,7 +9,7 @@
 .kortx.reg.form {
     width: 90%;
     min-width: 320px;
-    margin: 6vh auto 25vh auto;
+    margin: 5.5vh auto 25vh auto;
     text-align: center;
 }
 
@@ -32,17 +32,48 @@
 
 .kortx.reg.form .registration .field label {
     display: block;
+    cursor: pointer;
 }
 
 .kortx.reg.form .registration .split {
     display: inline-block;
     vertical-align: top;
-    padding: 0 2em 0 2em;
+    padding: 0.5em 2em 0 2em;
+    border-collapse: collapse;
+    border-spacing: 0;
+    max-width: 26%;
+    width: 22%;
+}
+
+.kortx.reg.form .registration .field {
+    margin-bottom: 1.5em;
 }
 
 .kortx.reg.form .registration .split.lborder {
-    border-left: 1px solid #d3a45b;
-    margin-bottom: 2vh;
+     border-left: 1px solid #d3a45b;
+     margin-bottom: 2vh;
+    margin-left: -1px;
+ }
+
+.kortx.reg.form .registration .split.rborder {
+    border-right: 1px solid #d3a45b;
+    margin-right: 0;
+}
+
+
+.kortx.reg.form .registration .split.rborder .field.registration-status-item{
+    width: 60%;
+    float: right;
+}
+
+.kortx.reg.form .registration .split.rborder .field.registration-status-item > div{
+    position: relative;
+}
+.kortx.reg.form .registration .split.rborder .field.registration-status-item input {
+    position: absolute;
+    right: 10px;
+    top: 35%;
+    cursor: pointer;
 }
 
 .kortx.reg.form .input-with-icon {

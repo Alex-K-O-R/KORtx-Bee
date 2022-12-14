@@ -1,6 +1,7 @@
 <?php
 namespace app\dba;
 
+use app\Application;
 use app\dba\constants\DBSettings;
 use app\dba\inners\_SecurityDBA;
 use app\dba\inners\_UserDBA;
@@ -142,9 +143,11 @@ class UserDBA extends _UserDBA{
                 , 'user_id', null, self::table
             )
             , 'row');
-        if(!$res && is_dir(FileDBA::FILE_DIRECTORY().$hash)){
-            //exit;
-            unlink(FileDBA::FILE_DIRECTORY().$hash);
+        if(!$res && is_dir(FileDBA::DIR_PATH().$hash)){
+            Application::LogTxt("Removing dir for user $uid", 'log.txt');
+            if(mb_strlen($hash)>0){
+                rmdir(FileDBA::DIR_PATH().$hash);
+            }
         } else
             return $hash;
     }
@@ -162,12 +165,17 @@ class UserDBA extends _UserDBA{
             if(!$hash){
                 $hash = $this->createHashDirectoryForUser($UserMDL->getUserId(), $UserMDL->getLogin());
             }
-            copy($newFilePath, FileDBA::FILE_DIRECTORY($hash).basename($newFilePath));
+
+            //print $_SERVER["DOCUMENT_ROOT"]." :::\r\n ";
+            copy($newFilePath, FileDBA::DIR_PATH().$hash.FileDBA::DIRECTORY_SEPARATOR.basename($newFilePath));
+            //print FileDBA::DIR_PATH().$hash.FileDBA::DIRECTORY_SEPARATOR.basename($newFilePath)." Vss "."$newFilePath"; exit;
+
             $newFilePath = basename($newFilePath);
             $row = $this->historicalUpdate(self::table, 'avatar_path', $newFilePath, 'user_id', $UserMDL->getUserId(), null);
 
             if($row && $row[0] != $newFilePath){
-                FileDBA::removeFile(FileDBA::FILE_DIRECTORY($hash).$row[0]);
+                //print $row[0]." Vs "."$newFilePath"; exit;
+                FileDBA::removeFile(FileDBA::DIR_PATH($hash).$row[0]);
             }
             LogDBA::logUserAction($ModCntxt, $row[0], $newFilePath, 'Uploaded new photo for user: '.$UserMDL->getUserId());
         }
@@ -192,7 +200,7 @@ class UserDBA extends _UserDBA{
         $UserMDL = new UserMDL($entityFetch);
         $this->deleteSecuRecById($UserMDL->getSecId(), $ModificationContext);
 
-        if($delete_resource_directory) FileDBA::removeDirectory(FileDBA::FILE_DIRECTORY($UserMDL->getResourceHash()));
+        if($delete_resource_directory) FileDBA::removeDirectory(FileDBA::DIR_PATH($UserMDL->getResourceHash()));
 
         if ($this->query('DELETE from '.self::table.' WHERE user_id = \''.$UserMDL->getUserId().'\';')) {
             LogDBA::logUserAction($ModificationContext, $UserMDL->getUserId(), null, 'User was removed: '.$UserMDL->getLogin(), DBChanges::level_medium);

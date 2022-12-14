@@ -8,35 +8,64 @@ use app\utilities\inner\MathEtc;
 class FileDBA {//TODO: WHEN UPLOADED WITH SAME NAME, SAVE OLD
     const UPLOAD_METHOD_Link = 'link';
     const UPLOAD_METHOD_Blob = 'blob';
+    const DIRECTORY_SEPARATOR = DIRECTORY_SEPARATOR;
 
     const COMMON_ERRORS_FILES_TOO_BIG = 1;
     private $filesPath;
-    private $accPath;
+    private $srcPath;
 
     protected static function BASE_DIRECTORY(){
-        return '/storage/';
+        return self::DIRECTORY_SEPARATOR.'storage';
     }
 
-    static function FILE_URL($section = null)
+    /*    static function DOC_ROOT(){
+            return str_replace('/', self::DIRECTORY_SEPARATOR, $_SERVER['DOCUMENT_ROOT']);
+        }*/
+
+    static function DIR_URL($section = null, $root = null)
     {
-        return self::GLOBAL_getResourceRelativePath($section);
+        return str_replace('\\', '/',self::GLOBAL_getResourceRelativePath($section, $root));
     }
 
-    static function FILE_DIRECTORY($section = null)
+    static function DIR_PATH($section = null, $root = null)
     {
-        return $_SERVER['DOCUMENT_ROOT'].self::GLOBAL_getResourceRelativePath($section);
+        return $_SERVER['DOCUMENT_ROOT'].self::GLOBAL_getResourceRelativePath($section, $root);
     }
 
-    public static function GLOBAL_getResourceRelativePath($section){
-        return self::BASE_DIRECTORY().(($section===null)?'':$section.'/');
+    private static function GLOBAL_getResourceRelativePath($section, $root = null){
+        return (($root===null)?self::BASE_DIRECTORY():trim($root, '\/')).self::DIRECTORY_SEPARATOR.trim($section, '\/').self::DIRECTORY_SEPARATOR;
     }
 
 
     function __construct($resourceFolder)
     {
-        $this->accPath = trim($resourceFolder, '\/');
-        $this->filesPath = self::FILE_DIRECTORY($this->accPath);
-        self::createDirectoryWithRights($this->filesPath, 0766);
+        $this->srcPath = $resourceFolder;
+        $this->filesPath = self::DIR_PATH($this->srcPath, self::DIRECTORY_SEPARATOR);
+        $this->createRecursive($this->filesPath);
+    }
+
+
+
+    public function createRecursive($fullPathString, $rights = 0776) {
+        $str = explode(self::DIRECTORY_SEPARATOR, $fullPathString);
+        $dir = '';
+        foreach ($str as $part) {
+            $dir .= $part . self::DIRECTORY_SEPARATOR;
+            if (!is_dir($dir) && mb_strlen($dir) > 0 && mb_strpos($dir, ".") === false) {
+                $this->createDirectoryWithRights($dir, $rights);
+            }
+        }
+    }
+
+
+    public function getFiles($mask) {
+        return self::getFilesPathsListOfTypeInDirectory($this->filesPath, $mask);
+    }
+
+
+
+    public function getFileLink($name) {
+        return $this->filesPath.$name;
     }
 
 
@@ -48,11 +77,11 @@ class FileDBA {//TODO: WHEN UPLOADED WITH SAME NAME, SAVE OLD
     public static function createHashForDirectory($salt, $length = 7){
         do {
             $salt = MathEtc::generateRandomScrtCnsqnc($salt, $length);
-        } while(is_dir(self::FILE_DIRECTORY().$salt));
+        } while(is_dir(self::DIR_PATH().$salt));
 
-        mkdir(self::FILE_DIRECTORY().$salt, 0766);
+        mkdir(self::DIR_PATH().$salt, 0766);
 
-        if(is_dir(self::FILE_DIRECTORY().$salt)) {return $salt;}
+        if(is_dir(self::DIR_PATH().$salt)) {return $salt;}
 
         return null;
     }
@@ -93,22 +122,6 @@ class FileDBA {//TODO: WHEN UPLOADED WITH SAME NAME, SAVE OLD
     }
 
 
-    function recursive_copy($src,$dst) {
-        $dir = opendir($src);
-        @mkdir($dst);
-        while(( $file = readdir($dir)) ) {
-            if (( $file != '.' ) && ( $file != '..' )) {
-                if ( is_dir($src . '/' . $file) ) {
-                    $this->recursive_copy($src .'/'. $file, $dst .'/'. $file);
-                }
-                else {
-                    copy($src .'/'. $file,$dst .'/'. $file);
-                }
-            }
-        }
-        closedir($dir);
-    }
-
 
     /**
      * @param $filePthNm
@@ -122,6 +135,7 @@ class FileDBA {//TODO: WHEN UPLOADED WITH SAME NAME, SAVE OLD
                 self::removeDirectory($object);
             }
         }
+
     }
 
 

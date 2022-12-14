@@ -15,7 +15,7 @@ interface ICoreSettings {
 
     const DEFAULT_LANGUAGE_ACRONYM = 'RU';
     const PROFILER_MODE = 0;
-    const DEBUG_MODE = 0;
+    const DEBUG_MODE = 1;
 
     const LOG_DIRECTORY = '/illusions_of_eternity';
 }

@@ -48,7 +48,7 @@ class TextEditor {
                             document.getElementById('editor-output_<?=$TextInputName?>').value = html;
                         }
                     });
-                    editor.content.innerHTML = '<?=$defaultText?>';
+                    editor.content.innerHTML = <?=json_encode($defaultText)?>;
                     $('#editor-output_<?=$TextInputName?>').on('change', function(){
                         var prev_editor_val = document.getElementById('editor-output_<?=$TextInputName?>').value;
                         if(typeof prev_editor_val == 'undefined' || typeof prev_editor_val != 'undefined' && prev_editor_val == ''){

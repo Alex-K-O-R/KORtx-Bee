@@ -43,7 +43,7 @@ class DBAccess extends DBAccessGeneric {
     final protected function historicalUpdate($table, $field, $value, $keyField, $keyVal, $lang_id){
         if(CIS::l($keyVal)===null||!CIS::l($keyField)===null||!CIS::l($lang_id)===null && $keyField==='string_id') return null;
 
-        $value = mysqli_escape_string($this->conn_provider->get(), $value);
+        $value = $this->escape_string($value);
         if(!is_bool($value) && !is_numeric($value)) {
             $value = "'".$value."'";
         }
@@ -68,11 +68,11 @@ class DBAccess extends DBAccessGeneric {
     final protected function addDynamicString($ent_type, $lang_id, $value = '', $string_id = null){
         if(!$ent_type) return null;
         $lang_id = intval($lang_id);
-        $value = mysqli_escape_string($this->conn_provider->get(), $value);
+        $value = $this->escape_string($value);
         if($string_id===null || $string_id ===''){
             $query = $this->query(
                 $this->INSERT_RETURNING_TRICK_SQL(
-                    'INSERT INTO new_one_strings (string_id, lang_id, value, ent_type)
+                    'INSERT INTO '.DBAccess::table.' (string_id, lang_id, value, ent_type)
                         WITH existing AS ('.
                         self::GLOBAL_getFirstEmptyIndexFromNonAutoIncrementTableSQL('string_id', self::table).
                         ')
@@ -125,22 +125,12 @@ class DBAccess extends DBAccessGeneric {
                             }
 
                             break;
-                        case 'obj':
-                            $Result = mysqli_fetch_object($myResult);
-                            break;
                         case 'arr': //DONE! TODO : Perhaps will be cool if mixed with *set* method when single collumn appears..
                             $list = array();
-                            $SCR = null; //Single Column Result
                             while ($row = mysqli_fetch_row($myResult)) {
                                 $list[] = $row;
-                                //Core::__500Report('> '.print_r($row, true));
-                                if($SCR === null){
-                                    //Core::__500Report('>> '.print_r(count($row), true));
-                                    if(count($row)<2){$Result = mysqli_fetch_fields($myResult); break;}else{$SCR = false;}
-                                }
                             }
                             $Result = $list;
-                            //Core::__500Report("\r\n-\r\n-\r\n-");
                             break;
                         case 'aff':
                             $Result = mysqli_affected_rows($this->conn_provider->get());

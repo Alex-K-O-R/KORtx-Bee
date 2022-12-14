@@ -12,8 +12,9 @@ use app\Application;
         , 'EN'=>'Select DB type that you are going to use and provide the access parameters'), $lang)?>:
     </p>
 
-    <div class="split">
+    <div class="split rborder">
         <div class="field registration-status-item">
+            <div>
             <input id="radio-pgsql" type="radio" name="db_type" value="pgsql" class="registration-radio-hidden">
             <label for="radio-pgsql">
                     <span class="registration-status-btn">
@@ -21,7 +22,8 @@ use app\Application;
                         <p class="registration-status-name">PostgreSQL</p>
                     </span>
             </label>
-
+            </div>
+            <div>
             <input id="radio-maria" type="radio" name="db_type" value="mysql" class="registration-radio-hidden">
             <label for="radio-maria">
                     <span class="registration-status-btn">
@@ -29,6 +31,17 @@ use app\Application;
                         <p class="registration-status-name">MariaDB</p>
                     </span>
             </label>
+            </div>
+            <div>
+            <input id="radio-lite3" type="radio" name="db_type" value="lite3" class="registration-radio-hidden">
+            <label for="radio-lite3">
+                    <span class="registration-status-btn">
+                        <img src="/Install/display/img/sqlite370_banner.gif" alt="SQLite3 logo" class="db-icon">
+                        <p class="registration-status-name">SQLite3</p>
+                    </span>
+            </label>
+            </div>
+
 
             <!--<input id="radio-mysql" type="radio" name="db_type" value="mysql" class="registration-radio-hidden">
             <label for="radio-mysql">
@@ -39,13 +52,18 @@ use app\Application;
             </label>-->
 
         </div>
-    </div>
-    <div class="split lborder">
+    </div><!--
+ --><div class="split lborder">
         <div class="field">
-            <label>
+            <label class="fs-dbs">
                 <?=Application::GlobalTransliter(array(
                     'RU'=>'Адрес компьютера с БД.'
                 , 'EN'=>'DB server address'), $lang)?>
+            </label>
+            <label class="lt-dbs" style="display: none;">
+                <?=Application::GlobalTransliter(array(
+                    'RU'=>'Путь к файлу БД (отн. Doc-root).'
+                , 'EN'=>'DB file path (rel. to Doc-root)'), $lang)?>
             </label>
             <div class="input-with-icon">
                 <input type="text" value="" name="db_host" placeholder="127.0.0.1">
@@ -56,7 +74,7 @@ use app\Application;
                 </i>
             </div>
         </div>
-        <div class="field">
+        <div class="field fs-dbs">
             <label>
                 <?=Application::GlobalTransliter(array(
                     'RU'=>'Пользователь для авторизации в БД.'
@@ -93,9 +111,21 @@ use app\Application;
                     </svg>
                 </i>
             </div>
+            <br/><br/>
+            <div class="lt-dbs" style="position: relative; display: none; width: inherit; max-width: inherit;">
+                <?=Application::GlobalTransliter(array(
+                    'RU'=>'<b style="color: red;">Внимание!</b> <br/>Для нормальной работы необходим драйвер php_sqlite3 с фиксом ошибки двойного исполнения команд и SQLite с поддержкой Unicode.'
+                , 'EN'=>'<b style="color: red;">Warning!</b> <br/>SQLite with Unicode support and php_sqlite3 driver with double command execution fix are neccessary for normal functioning.'), $lang)?>
+            </div>
+            <br/>
+            <div class="lt-dbs" style="position: relative; display: none; width: inherit; max-width: inherit;">
+                <?=Application::GlobalTransliter(array(
+                    'RU'=>'<b>Также замечание:</b> <br/>Пароль для SQLite3 имеет смысл только при использовании коммерческих расширений SEE, CEROD, ... Без расширений база открытая, пароль не используется.'
+                , 'EN'=>'<b>Also notice:</b> <br/>Password for SQLite3 is useful with commercial extensions only: SEE, CEROD, ... Without those extensions, database is open; password is not being used.'), $lang)?>
+            </div>
         </div>
    </div>
-    <div class="field">
+    <div class="field" style="margin-top: 1em;">
         <button type="submit" class="ui onexpo-form-btn registration-button">
             <?=Application::GlobalTransliter(array('RU'=>'Продолжить', 'EN'=>'Continue'), $lang)?>
         </button>
@@ -104,5 +134,20 @@ use app\Application;
 <script type="text/javascript">
     $(function(){
         new KORtx.KShowPassword('i.input-tooltip.input-icon');
+    });
+</script>
+<script type="text/javascript">
+    $('input[name=db_type]').change(function(){
+
+        if($(this).val()!='lite3') {
+            $('.lt-dbs').hide();
+            $('.fs-dbs').show();
+            $('input[name=db_host]').attr('placeholder', '127.0.0.1').blur();
+        }
+        if($(this).val()=='lite3') {
+            $('.lt-dbs').show();
+            $('.fs-dbs').hide();
+            $('input[name=db_host]').attr('placeholder', '/').blur();
+        }
     });
 </script>

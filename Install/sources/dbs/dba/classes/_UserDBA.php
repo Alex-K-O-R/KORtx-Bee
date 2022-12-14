@@ -36,7 +36,7 @@ class _UserDBA extends _SecurityDBA implements IModelDataProvider {
      * @param $login
      * @param $password
      * @param $ModificationContext
-     * @return bool RETURNING user_id
+     * @return bool RETURNING user_id\
      */
     public function addUser($login, $password, $ModificationContext) {
         if ($login && $password && $ModificationContext) {
@@ -84,7 +84,7 @@ class _UserDBA extends _SecurityDBA implements IModelDataProvider {
                 if($DynStrIndex){
                     $was = self::deleteDynamicStringById($DynStrIndex, $lang_id);
                     $this->query('UPDATE '.self::table.' SET '.$DynStrLinkColumn.' =
-                                (CASE WHEN EXISTS(SELECT string_id from new_one_strings WHERE string_id = '.$DynStrLinkColumn.' LIMIT 1) then '.$DynStrLinkColumn.' else NULL end)
+                                (CASE WHEN EXISTS(SELECT string_id from '.DBAccess::table.' WHERE string_id = '.$DynStrLinkColumn.' LIMIT 1) then '.$DynStrLinkColumn.' else NULL end)
                                 WHERE user_id = '.$uid);
                     LogDBA::logUserAction($ModCntxt, $was, $newValue, 'Property was deleted ['.$DynStrLinkColumnLogName.'] for user', DBChanges::level_low);
                 }

@@ -36,13 +36,13 @@ class _WebPortalDBA extends DBAccess {
         if($cand){
             $this->query('UPDATE '.self::table_last_visits.'
                             SET subject_id = '.$ent_id.'
-                            , view_date = DEFAULT
+                            , view_date = CURRENT_TIMESTAMP
                             WHERE user_id = '.$uid.' AND subject_type = \''.$ent_type.'\'
                             AND view_date = \''.$cand.'\'');
         } else {
             $this->query('INSERT INTO '.self::table_last_visits.'
                         (user_id, subject_id, subject_type, view_date)
-                            VALUES('.$uid.', '.$ent_id.', \''.$ent_type.'\', DEFAULT)');
+                            VALUES('.$uid.', '.$ent_id.', \''.$ent_type.'\', CURRENT_TIMESTAMP)');
         }
     }
 
@@ -124,9 +124,11 @@ class _WebPortalDBA extends DBAccess {
         $fav_id = intval($fav_id);
         $fav_type = CIS::l($fav_type);
 
-        return self::removeFavoriteOrBannedOrDislikedRelationsForEntitySQL($ent_type, $ent_id, $fav_type, $fav_id).'; INSERT INTO '.self::table_favorites.'
+        return self::removeFavoriteOrBannedOrDislikedRelationsForEntitySQL($ent_type, $ent_id, $fav_type, $fav_id).';
+        INSERT INTO '.self::table_favorites.'
                         (ent_type, ent_id, fav_type, fav_id, inverse)
-                            VALUES(\''.$ent_type.'\', '.$ent_id.', \''.$fav_type.'\', '.$fav_id.', '.($dislike?'true':'DEFAULT').');
+                            VALUES(\''.$ent_type.'\', '.$ent_id.', \''.$fav_type.'\', '.$fav_id.', '.($dislike?'true':'false').');
+
                             SELECT '.$fav_id.' FROM '.self::table_favorites.' WHERE ent_id = '.$ent_id.' AND ent_type = \''.$ent_type.'\'
                                 AND fav_type = \''.$fav_type.'\';';
     }

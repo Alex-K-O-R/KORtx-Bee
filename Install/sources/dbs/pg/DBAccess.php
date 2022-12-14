@@ -51,6 +51,34 @@ class DBAccess extends DBAccessGeneric {
                 , 'y.'.$field, $keyField, $table
             )
             , 'row');
+        /** Alternatives w/o block:
+        UPDATE '.$table.'
+        SET avatar_path = 'Avatar_g3.png'
+        FROM '.$table.' AS old_'.$table.'
+        WHERE old_'.$table.'.user_id = (
+        SELECT user_id
+        FROM '.$table.'
+        WHERE user_id = 2
+        LIMIT 1
+        )
+        AND '.$table.'.user_id = old_'.$table.'.user_id
+        RETURNING '.$table.'.user_id, '.$table.'.avatar_path, old_'.$table.'.avatar_path AS old_processing_by
+
+        UPDATE '.$table.' SET avatar_path = 'Avatar_g6.png' WHERE user_id = 2
+        RETURNING (SELECT avatar_path FROM '.$table.' WHERE user_id = 2);
+
+
+        WITH sel AS (
+        SELECT avatar_path, user_id FROM '.$table.' WHERE user_id = 2
+        )
+        , upd AS (
+        UPDATE '.$table.' SET avatar_path= 'New Guy' WHERE user_id = 2
+        RETURNING avatar_path, user_id
+        )
+        SELECT s.user_id AS old_id, s.avatar_path As old_name
+        , u.user_id , u.avatar_path
+        FROM   sel s, upd u;
+         */
     }
 
 
@@ -68,7 +96,7 @@ class DBAccess extends DBAccessGeneric {
         if($string_id===null || $string_id ===''){
             $query = $this->query(
                 $this->INSERT_RETURNING_TRICK_SQL(
-                    'INSERT INTO new_one_strings (string_id, lang_id, value, ent_type)
+                    'INSERT INTO '.DBAccess::table.' (string_id, lang_id, value, ent_type)
                         WITH existing AS ('.
                         self::GLOBAL_getFirstEmptyIndexFromNonAutoIncrementTableSQL('string_id', self::table).
                         ')
@@ -108,9 +136,6 @@ class DBAccess extends DBAccessGeneric {
                 switch($fetch){
                     case 'row':
                         return pg_fetch_row($pgResult);
-                        break;
-                    case 'obj':
-                        return pg_fetch_object($pgResult);
                         break;
                     case 'arr': //DONE! TODO : Perhaps will be cool if mixed with *set* method when single collumn appears..
                         $list = array();

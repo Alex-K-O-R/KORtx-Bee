@@ -94,7 +94,7 @@ abstract class DBAccessGeneric {
     }
 
     final static function GLOBAL_getFirstEmptyIndexFromNonAutoIncrementTableSQL($indxFieldName, $tblName){
-        return '(select case when NOT
+        return 'select case when NOT
                 EXISTS(SELECT NULL FROM '.$tblName.')
                 then 0 else (
                         SELECT '.$indxFieldName.'+1 FROM '.$tblName.' t1
@@ -102,10 +102,10 @@ abstract class DBAccessGeneric {
                             select '.$indxFieldName.' from '.$tblName.' t2 where
                   t1.'.$indxFieldName.' IS NOT NULL AND t2.'.$indxFieldName.' IS NOT NULL
                             AND (t1.'.$indxFieldName.'+1) = t2.'.$indxFieldName.'
-                  ORDER BY t1.'.$indxFieldName.' ASC limit 1
+                  ORDER BY '.$indxFieldName.' ASC limit 1
                  )
                  ORDER BY '.$indxFieldName.' ASC limit 1
-                ) end  as '.$indxFieldName.')';
+                ) end  as '.$indxFieldName.'';
     }
 
 
@@ -126,8 +126,6 @@ abstract class DBAccessGeneric {
     }
 
     final protected function deleteDynamicStringsForAllLanguagesByIds($string_ids, $ent_type=null, $ent_id=null){
-        Application::LogTxt('DELETE FROM '.self::table.'
-            WHERE 5=5 AND string_id IN ('.self::formStringIds($string_ids).') AND  ent_type = \''.$ent_type.'\'', 'my-sql-errors.log');
         $this->query('DELETE FROM '.self::table.'
             WHERE 5=5 AND string_id IN ('.self::formStringIds($string_ids).') AND  ent_type = \''.$ent_type.'\'');// AND entity_id = \''.$ent_id.'\'
         //');

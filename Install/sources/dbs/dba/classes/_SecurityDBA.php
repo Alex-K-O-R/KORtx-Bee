@@ -88,9 +88,10 @@ class _SecurityDBA extends DBAccess implements IModelDataProvider {
 
         if($login){
             $login = $this->escape_string($login);
-            return $this->query(
+            $row = $this->query(
                 self::GLOBAL_getAllForAllSQL().
-                    'WHERE login = \'' . $login . '\'', 'obj');
+                    'WHERE login = \'' . $login . '\'', 'row');
+            return ($row && $row[0]) ? $row[0] : false;
         }
     }
 
@@ -116,7 +117,7 @@ class _SecurityDBA extends DBAccess implements IModelDataProvider {
     public function refreshLastLoginDate($sid) {
         $sid = intval($sid);
         $this->query('UPDATE '.self::table.' SET
-        last_login_date = NOW() WHERE sec_id = \''.$sid.'\'');
+        last_login_date = CURRENT_TIMESTAMP WHERE sec_id = \''.$sid.'\'');
     }
 
 
