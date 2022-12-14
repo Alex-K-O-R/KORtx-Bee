@@ -3,20 +3,20 @@
 
 You're observing the installer. Simply copy files to the host, load index.php, then go through. Lots of information would become available after the installation is complete.
 
-Minimal requirements are: 
-Php 7.2 and ( PostgreSQL 9.5 or MariaDB 10.4 or SQLite 3.9.1 ).
-[PHP.ini]
-short_open_tag = On; <-- Had been planned to deprecate or even to remove https://wiki.php.net/rfc/deprecate_php_short_tags !!! This is INSANE!
-extension=php_curl.dll
-extension=php_gd2.dll
-extension=php_mbstring.dll
-AND
-(
-	extension=php_mysqli.dll
-OR
-	extension=php_pgsql.dll
-OR
-	extension=php_sqlite3.dll
+Minimal requirements are:  
+Php 7.2 and ( PostgreSQL 9.5 or MariaDB 10.4 or SQLite 3.9.1 ).  
+[PHP.ini]  
+short_open_tag = On; <-- Had been planned to deprecate or even to remove https://wiki.php.net/rfc/deprecate_php_short_tags !!! This is INSANE!  
+extension=php_curl.dll  
+extension=php_gd2.dll  
+extension=php_mbstring.dll  
+AND  
+(  
+	extension=php_mysqli.dll  
+OR  
+	extension=php_pgsql.dll  
+OR  
+	extension=php_sqlite3.dll  
 )
 
 KORtx Bee project is free of use (MIT). I will be glad if while using KORtx Bee, you will save a small credits to an author in commentaries.
