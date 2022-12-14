@@ -17,7 +17,7 @@ use app\utilities\inner\CIS;
 use app\Application;
 
 session_start();
-error_reporting(E_CORE_ERROR, E_ERROR, E_PARSE, E_USER_ERROR);
+error_reporting(E_CORE_ERROR | E_ERROR | E_PARSE | E_USER_ERROR);
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 

@@ -343,7 +343,7 @@ trait Core {
     public static function __500Report($custom = null)
     {
         $error = error_get_last();
-        if ($custom || $error !== NULL && in_array($error['type'], array(E_ERROR, E_PARSE, E_CORE_ERROR, E_CORE_WARNING, E_COMPILE_ERROR, E_COMPILE_WARNING,E_RECOVERABLE_ERROR))) {
+        if ($custom || $error !== NULL && in_array($error['type'], array(E_ERROR | E_PARSE | E_CORE_ERROR | E_CORE_WARNING | E_COMPILE_ERROR | E_COMPILE_WARNING |E_RECOVERABLE_ERROR))) {
             self::LogTxt("r\n\r\n".date('d-m-Y H:i:s').": Ошибка [".(($custom)?'user_generated':'debug')."]:\r\n".print_r($custom?$custom:$error, true), "debug.log");
             //die;
         }
