@@ -8,7 +8,9 @@ trait LoadDbas {
      */
     public function getUserDBA()
     {
-        if(!$this->userDBA){$this->userDBA = new UserDBA();}
+        if(!$this->userDBA){
+            $this->userDBA = new UserDBA();
+        }
         return $this->userDBA;
     }
 
