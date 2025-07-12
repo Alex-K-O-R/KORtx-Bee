@@ -365,9 +365,6 @@ trait Core {
         error_log($string, 3, $logDir.DIRECTORY_SEPARATOR.$logFileName);
     }
 
-
-    protected abstract function refreshSessionObjects(...$params);
-
     protected function getSessionDiv($name) {
         if (isset($_SESSION)) {
             return CIS::l($_SESSION, $name);
