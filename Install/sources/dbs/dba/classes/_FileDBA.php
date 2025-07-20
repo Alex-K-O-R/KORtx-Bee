@@ -33,7 +33,7 @@ class FileDBA {//TODO: WHEN UPLOADED WITH SAME NAME, SAVE OLD
     }
 
     private static function GLOBAL_getResourceRelativePath($section, $root = null){
-        return (($root===null)?self::BASE_DIRECTORY():trim($root, '\/')).self::DIRECTORY_SEPARATOR.trim($section, '\/').self::DIRECTORY_SEPARATOR;
+        return (($root===null)?self::BASE_DIRECTORY():trim($root, '\/')).self::DIRECTORY_SEPARATOR.trim($section ?? '', '\/').self::DIRECTORY_SEPARATOR;
     }
 
 
@@ -74,7 +74,7 @@ class FileDBA {//TODO: WHEN UPLOADED WITH SAME NAME, SAVE OLD
      * @param int $length - directory name's length
      * @return array|null|string
      */
-    public static function createHashForDirectory($salt, $length = 7){
+    public static function createHashForDirectory($salt, $length = 10){
         do {
             $salt = MathEtc::generateRandomScrtCnsqnc($salt, $length);
         } while(is_dir(self::DIR_PATH().$salt));

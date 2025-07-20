@@ -5,5 +5,4 @@ SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
 SET GLOBAL foreign_key_checks=OFF;
 
-#DROP DATABASE IF EXISTS '{prefix}_series';
-CREATE DATABASE {prefix}_series CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE SCHEMA IF NOT EXISTS {prefix}_series DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;

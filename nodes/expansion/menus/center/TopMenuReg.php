@@ -1,7 +1,7 @@
 <?php
 namespace app\display\nodes\menu;
+use app\nodes\menus\MenuRecModel;
 use app\WebUIApplication;
-use app\utilities\inner\menus\MenuRecModel;
 use app\pages\Pages;
 
 class TopMenuReg extends TopMenuTMPLT {

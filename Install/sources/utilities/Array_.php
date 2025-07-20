@@ -6,7 +6,6 @@ class Array_ {
     public static function startsWith(&$haystack, $needle, $removePrefix = false)
     {
         $length = mb_strlen($needle);
-        //print_r(mb_substr($haystack, 0, $length).'<>'. $needle);
         $res = (mb_substr($haystack, 0, $length) == $needle);
         if($res && $removePrefix){
             $haystack = mb_substr($haystack, mb_strlen($needle), mb_strlen($haystack)-mb_strlen($needle));
@@ -76,7 +75,7 @@ class Array_ {
 
     public static function arrayAssocToPlainWithIndexes(&$arr){
         foreach($arr as $k=>$val){
-            $arr[\utility\Array_::getLastPartAfterDelimeter($k)] = $val;
+            $arr[Array_::getLastPartAfterDelimeter($k)] = $val;
             unset($arr[$k]);
         }
         return $arr;
@@ -130,5 +129,17 @@ class Array_ {
         return $res;//array_unique(array_map('utility\Array_::getLastPartAfterDelimeter', array_keys($InformationsToAdd)));
     }
 
+    public static function implode($a, $b){
+        $result = null;
 
+        if(is_array($a) && is_string($b)) {
+            $result = (PHP_MAJOR_VERSION < 8 && PHP_MINOR_VERSION < 4) ? implode($a, $b) : implode($b, $a);
+        }
+
+        if(is_string($a) && is_array($b)) {
+            $result = (PHP_MAJOR_VERSION < 8 && PHP_MINOR_VERSION < 4) ? implode($b, $a) : implode($a, $b);
+        }
+
+        return $result;
+    }
 }

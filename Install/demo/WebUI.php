@@ -199,7 +199,7 @@ class WebUIApplication extends Application {
 
             case Pages::register:{
                 $this->Profiler->Start();
-                include_once($_SERVER['DOCUMENT_ROOT'].'/utilities/captcha/kcaptcha.php');
+                require_once($_SERVER['DOCUMENT_ROOT'].'/utilities/captcha/kcaptcha.php');
                 $captcha = null;
 
                 if($post){
@@ -493,7 +493,7 @@ class WebUIApplication extends Application {
 
             case Pages::db_client:
                 if($this->getUserInfo() && $this->getUserInfo()->getIsAdmin())
-                    include_once($_SERVER['DOCUMENT_ROOT'].'/utilities/dbclient/adminer.php');
+                    require_once($_SERVER['DOCUMENT_ROOT'].'/utilities/dbclient/adminer.php');
                 else $this->RedirectTo('404');
                 break;
 

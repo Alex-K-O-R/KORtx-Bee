@@ -1,7 +1,7 @@
 <?php
 namespace app\pages;
 
-use app\constants\ThemeRulerS;
+use app\constants\PageResources;
 use app\utilities\inner\CIE;
 
 class Theme {
@@ -39,7 +39,7 @@ class Theme {
     }
 
     private function cssTemplate($css){
-        $link = ThemeRulerS::getFullPathToCSS($css);
+        $link = PageResources::getFullPathToCSS($css);
         if(is_readable($_SERVER['DOCUMENT_ROOT'].$link))return '<link rel="stylesheet" type="text/css" href="'.$link.'" media="all" />';
     }
     public function getCss()
@@ -54,7 +54,7 @@ class Theme {
 
     public function getFooter()
     {
-        $path = ThemeRulerS::getFullPathToTemplates($this->footer);
+        $path = PageResources::getFullPathToTemplates($this->footer);
         if(is_readable($path))require_once($path);
     }
 
@@ -64,7 +64,7 @@ class Theme {
         /**
          * @var $CSS
          */
-        $path = ThemeRulerS::getFullPathToTemplates($this->header);
+        $path = PageResources::getFullPathToTemplates($this->header);
         if(is_readable($path))require_once($path);
     }
 
@@ -77,12 +77,11 @@ class Theme {
         */
         //TODO No .js.js protection
         $tmp = stripos($script, '.js')+3;
-        $link = ThemeRulerS::getFullPathToJS(substr($script, 0, $tmp));
+        $link = PageResources::getFullPathToJS(substr($script, 0, $tmp));
         if(is_readable($_SERVER['DOCUMENT_ROOT'].$link)) return '<script src="'.$link.'" type="text/javascript"'.(substr($script, $tmp, strlen($script))).'></script>';
     }
     public function getJs()
     {
-        //if ($this->js)
         $tmp = '';
         if (is_array($this->js))
             foreach($this->js as &$script) $tmp .= $this->jsTemplate($script);

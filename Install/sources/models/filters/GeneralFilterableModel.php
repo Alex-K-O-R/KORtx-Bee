@@ -7,7 +7,6 @@ use app\filters\FilterConverter;
 use app\filters\FilterModes;
 use app\filters\FilterToDbOperatorConverter;
 use app\filters\ModelFilterDescription;
-use app\utilities\inner\Array_;
 use app\utilities\inner\CIS;
 use app\utilities\inner\DataConversion;
 
@@ -76,7 +75,7 @@ abstract class GeneralFilterableModel {
                     $values = CIS::l($get, $v->getGETFieldName(), null);
                 }
 
-                if (count($values) || $v->getFilterValue()) $this->processElement($values, $i, $v);
+                if ($values && count($values) || $v->getFilterValue()) $this->processElement($values, $i, $v);
                 else $this->resultSQL .= ' 1=1 ';
                 /*TODO 0611: if($count==0) $this->resultSQL .= ' (';
                 if($count==count($values))$this->resultSQL .= ') ';*/

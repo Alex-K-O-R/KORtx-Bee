@@ -49,20 +49,24 @@ $App = $this->Page()->Application();
             </div>
             <div class="login" style="/*! top: 6vh; */bottom: 1vh; right: 1.5vh;">
                 <img src="/Install/demo/display/img/icons/login.png">
-                <span><a href="<?=Pages::logout?>">Выход</a></span>
+                <span>
+                    <a href="<?=Pages::logout?>">
+                        <?=$App->Translater(array('RU'=>'Выход', 'EN'=>'Logout'));?>
+                    </a>
+                </span>
             </div>
         </div>
         <div class="static">
             <div class="outset">
                 <div class="header-lang-selector header-icon">
                     <?
-                    require_once $_SERVER['DOCUMENT_ROOT'] . '/display/nodes/menus/LanguageMenu.php';
+                    require_once $_SERVER['DOCUMENT_ROOT'] . '/nodes/expansion/menus/LanguageMenu.php';
                     LanguageMenu::Draw($App, $App->getSupportedLanguageInfo());
                     ?>
                 </div>
                 <?
-                require_once $_SERVER['DOCUMENT_ROOT'].'/display/nodes/menus/center/TopMenuTMPLT.php';
-                require_once $_SERVER['DOCUMENT_ROOT'].'/display/nodes/menus/center/TopMenuReg.php';
+                require_once $_SERVER['DOCUMENT_ROOT'].'/nodes/expansion/menus/center/TopMenuTMPLT.php';
+                require_once $_SERVER['DOCUMENT_ROOT'].'/nodes/expansion/menus/center/TopMenuReg.php';
                 new TopMenuReg($this->Page());
                 ?>
             </div>

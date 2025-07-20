@@ -271,8 +271,8 @@ trait Core {
 
         if(Application::DEBUG_MODE){
             error_reporting(E_ALL);
-            register_shutdown_function('app\Application::__500Report');
         }
+        register_shutdown_function(__CLASS__.'::__500Report');
 
         if($path[mb_strlen($path)-1]!=='/' && /*mb_strrpos($path,'.')>mb_strrpos($path, '/')&&*/!is_readable($_SERVER['DOCUMENT_ROOT'].$path)){
             self::__404Header();
@@ -301,7 +301,7 @@ trait Core {
      */
     private static function extractParamsFromPageUrl($url, $mask){
         $regEx = str_replace('*', '([ _\Q%20\Ea-zA-ZА-Яа-я0-9-]+)', '/^'.str_replace('/', '\/', $mask).'$/');
-        $res = array_filter(explode(':', preg_filter($regEx, '$1:$2:$3:$4:$5:$6:$7:$8:$9:$10', $url)));
+        $res = array_filter(explode(':', preg_filter($regEx, '$1:$2:$3:$4:$5:$6:$7:$8:$9:$10', $url) ?? ''));
         foreach($res as &$r){$r = urldecode($r);}
 
         return array(
@@ -326,7 +326,7 @@ trait Core {
                 );
             }
         }
-        return null;
+        return $result;
     }
 
 
@@ -343,7 +343,7 @@ trait Core {
     public static function __500Report($custom = null)
     {
         $error = error_get_last();
-        if ($custom || $error !== NULL && in_array($error['type'], array(E_ERROR | E_PARSE | E_CORE_ERROR | E_CORE_WARNING | E_COMPILE_ERROR | E_COMPILE_WARNING |E_RECOVERABLE_ERROR))) {
+        if ($custom || $error !== NULL && in_array($error['type'], array(E_ERROR, E_PARSE, E_CORE_ERROR, E_CORE_WARNING, E_COMPILE_ERROR, E_COMPILE_WARNING,E_RECOVERABLE_ERROR))) {
             self::LogTxt("r\n\r\n".date('d-m-Y H:i:s').": Ошибка [".(($custom)?'user_generated':'debug')."]:\r\n".print_r($custom?$custom:$error, true), "debug.log");
             //die;
         }
@@ -402,5 +402,10 @@ trait Core {
             self::unsetSessionDiv(Application::SESSION_USER_INFO_BLOCK);
             self::unsetSessionDiv(Application::SESSION_PORTAL_INFO_BLOCK);
         }
+    }
+
+    private $nodePaths = array();
+    public function loadNodeByName() {
+
     }
 }

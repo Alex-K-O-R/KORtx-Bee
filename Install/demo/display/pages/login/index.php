@@ -21,13 +21,13 @@ $App = $this->Application();
     <?
     if($this->Properties()->getState()===WebUIApplication::AUTH_NO_ACCESS){
         ?><br/><?
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/display/nodes/others/Warning.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/nodes/expansion/others/Warning.php';
         new Warning($App->Translater(array('RU'=>'Ошибка авторизации.', 'EN'=>'Authorization failed.')), $App->Translater(array('RU'=>'Неправильный логин, или пароль!', 'EN'=>'Wrong login or password!')));
     }
 
     if($this->Properties()->getState()===WebUIApplication::AUTH_NO_ACTIVATION){
         ?><br/><?
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/display/nodes/others/Warning.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/nodes/expansion/others/Warning.php';
         new Warning(
             $App->Translater(array('RU'=>'Учётная запись не активирована.', 'EN'=>'The account is not activated.'))
             ,$App->Translater(array(
@@ -39,7 +39,7 @@ $App = $this->Application();
 
     if($this->Properties()->getState()===WebUIApplication::AUTH_BLOCKED){
         ?><br/><?
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/display/nodes/others/Warning.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/nodes/expansion/others/Warning.php';
         new Warning($App->Translater(array('RU'=>'Учётная запись заблокирована!', 'EN'=>'User account has been blocked!')));
     }
     ?>

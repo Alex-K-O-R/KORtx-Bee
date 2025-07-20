@@ -273,7 +273,7 @@ echo transl("Какаято не реальная строка @$^*^&()&(5");
         $mail_segments[0] = substr($mail_segments[0], 0, 1) . str_repeat("*", 6) . substr($mail_segments[0], -2);
         $pos = strpos($mail_segments[1], '.');
         $mail_segments[1] = /*substr($mail_segments[1], 0, 1) .*/ str_repeat("*", 4) . substr($mail_segments[1], $pos);
-        return implode("@", $mail_segments);
+        return Array_::implode("@", $mail_segments);
     }
 
 
@@ -289,8 +289,8 @@ echo transl("Какаято не реальная строка @$^*^&()&(5");
             if (count($text) > 2 && $text[1] == '') {
                 if ($text[0] != 'https:') $text[0] = 'http:';
                 if ($visual) $text = array_slice($text, 2);
-            } else return (($visual) ? '' : 'http://') . implode('/', $text);
-            return implode('/', $text);
+            } else return (($visual) ? '' : 'http://') . Array_::implode('/', $text);
+            return Array_::implode('/', $text);
         }
         else return ((intval($text)===$text)?'':$text);
     }

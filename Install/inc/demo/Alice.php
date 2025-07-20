@@ -15,7 +15,7 @@ $UsrDba->updateGeneralInfo($Alice->getUserId(), "Your kind neighbour, Alice.", $
 $about = "You don't know why am I leaving. Or where I'm gonna go.\r\n";
 $about .= "You see, I've got my reasons, but you just don't want to know.\r\n";
 $about .= "Cause for 28 years you've never ever mentioned Alice... \r\n";
-$UsrDba->updateAdditionalInfo($Alice->getUserId(), $about, $EN_lang_id, $DBModCntxt);
+$UsrDba->updateAdditionalInfo($Alice->getUserId(), nl2br($about), $EN_lang_id, $DBModCntxt);
 //RU
 $UsrDba->updateName($Alice->getUserId(), 'Элис', $RU_lang_id, $DBModCntxt);
 $UsrDba->updateProfession($Alice->getUserId(), 'Психолог, писатель, астролог, философ', $RU_lang_id, $DBModCntxt);
@@ -23,7 +23,7 @@ $UsrDba->updateGeneralInfo($Alice->getUserId(), "Твоя дружелюбная
 $about = "Не знаешь ты зачем и почему я ухожу.\r\n";
 $about .= "На то ведь есть причины, но тебе их не скажу.\r\n";
 $about .= "Ведь все 28 лет подряд не видел ты девчонку Элис...\r\n";
-$UsrDba->updateAdditionalInfo($Alice->getUserId(), $about, $RU_lang_id, $DBModCntxt);
+$UsrDba->updateAdditionalInfo($Alice->getUserId(), nl2br($about), $RU_lang_id, $DBModCntxt);
 
 $UsrDba->updateUserAvatarPath($Alice, $InstallationSourcePath.'/inc/demo/avatars/Avatar_g2.png', $DBModCntxt);
 ?>

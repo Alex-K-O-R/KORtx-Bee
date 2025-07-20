@@ -1,28 +1,9 @@
 <?php
-namespace app\utilities\inner\menus;
 
-use app\pages\Page;
-abstract class Menu {
-    /**
-     * @var Page $Page
-     */
-    protected $Page;
-    public function __construct($Page){
-        $this->Page = $Page;
-        $this->Draw($this->FormModel());
-    }
 
-    /**
-     * @return MenuRecModel[]
-     */
-    abstract function FormModel();
+namespace app\nodes\menus;
 
-    /**
-     * @param MenuRecModel[] $menu
-     * @return mixed
-     */
-    abstract function Draw($menu);
-}
+
 class MenuRecModel {
     public $name;
     public $href;

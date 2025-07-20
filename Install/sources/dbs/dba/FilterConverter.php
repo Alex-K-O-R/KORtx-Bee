@@ -46,7 +46,7 @@ abstract class FilterConverter extends FilterToDbOperatorConverter implements IF
             }
             $result = '('.$result.')';
             if($lang_id)
-                return self::SQLConditionStructureForLanguageRelyingField(implode(',',$fieldnames), $sign, $values[0]);
+                return self::SQLConditionStructureForLanguageRelyingField(Array_::implode(',',$fieldnames), $sign, $values[0]);
             else return $result;
         }
         return '';

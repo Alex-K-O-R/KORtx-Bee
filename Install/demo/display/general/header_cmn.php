@@ -47,13 +47,13 @@ $App = $this->Page()->Application();
             <div class="outset">
                 <div class="header-lang-selector header-icon">
                     <?
-                    require_once $_SERVER['DOCUMENT_ROOT'] . '/display/nodes/menus/LanguageMenu.php';
+                    require_once $_SERVER['DOCUMENT_ROOT'] . '/nodes/expansion/menus/LanguageMenu.php';
                     LanguageMenu::Draw($App, $App->getSupportedLanguageInfo());
                     ?>
                 </div>
                 <?
-                require_once $_SERVER['DOCUMENT_ROOT'].'/display/nodes/menus/center/TopMenuTMPLT.php';
-                require_once $_SERVER['DOCUMENT_ROOT'].'/display/nodes/menus/center/TopMenuGen.php';
+                require_once $_SERVER['DOCUMENT_ROOT'].'/nodes/expansion/menus/center/TopMenuTMPLT.php';
+                require_once $_SERVER['DOCUMENT_ROOT'].'/nodes/expansion/menus/center/TopMenuGen.php';
                 new TopMenuGen($this->Page());
                 ?>
             </div>

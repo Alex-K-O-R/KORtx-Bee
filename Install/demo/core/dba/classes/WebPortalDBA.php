@@ -4,7 +4,7 @@ namespace app\dba;
 use app\dba\constants\DBSettings;
 use app\dba\inners\_SecurityDBA;
 use app\dba\inners\_UserDBA;
-use app\dba\inners\LogDBA;
+use app\dba\inners\_LogDBA;
 use app\dba\constants\DBChanges;
 use app\dba\inners\_WebPortalDBA;
 use app\models;

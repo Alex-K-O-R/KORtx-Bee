@@ -2,11 +2,11 @@
 namespace app\pages;
 
 use app\Application;
-use app\constants\ThemeRulerS;
+use app\constants\PageResources;
+use app\utilities\inner\Array_;
 use app\utilities\inner\CIS;
 
-class Page {
-    use PageThemes;
+class _Page {
     function __construct($parent, $url = null, $urlProperties = null)
     {
         $this->url = $url;
@@ -18,6 +18,14 @@ class Page {
 
         $this->pageProps = new PageProps();
         $this->Application = $parent;
+    }
+
+    /**
+     * @var $this Page
+     */
+    public function LoadThemes(): void
+    {
+        return;
     }
 
     private $url;
@@ -58,8 +66,6 @@ class Page {
      */
     private $Application;
 
-    private $props;
-
     /**
      * @var PageProps
      */
@@ -75,6 +81,14 @@ class Page {
 
     public function Application(){
         return $this->Application;
+    }
+
+    /**
+     * @return ThemeRuler
+     */
+    public function Themes()
+    {
+        return $this->themes;
     }
 
 
@@ -96,9 +110,16 @@ class Page {
         $res_url = $this->Application()->TryGetTranslated();
 
         if($res_url){
-            $this->themes->Get($this)->getHeader();
+            $theme = $this->themes->Get($this);
+            if ($theme) {
+                $theme->getHeader();
+            }
+
             require_once($res_url);
-            $this->themes->Get($this)->getFooter();
+
+            if ($theme) {
+                $theme->getFooter();
+            }
         } else
             $this->Application->RedirectTo('/404');
     }
@@ -112,8 +133,8 @@ class Page {
 
         $info = array_slice($info, 0, count($info)-1);
         $info = array_filter($info);
-        $info = implode('/', $info);
-        $info = ThemeRulerS::getFullPathToPages().$info;
+        $info = Array_::implode('/', $info);
+        $info = PageResources::getFullPathToPages().$info;
         $this->viewInfo["base"] = $info;
 
         return $info;
@@ -124,11 +145,8 @@ class Page {
         return CIS::l($this->viewInfo, "base", null);
     }
 
-
     public function getPageViewFileName()
     {
         return CIS::l($this->viewInfo, "file", null);
     }
-
-
 }

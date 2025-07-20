@@ -26,7 +26,7 @@ $captcha =  $this->Properties()->getVar('captcha');
 
     <?
     if($this->Properties()->getState()=='exists'){
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/display/nodes/others/Warning.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/nodes/expansion/others/Warning.php';
         new Warning(
             $App->Translater(array('RU'=>'Учётная запись с указанным логином уже существует.', 'EN'=>'An account with the specified login already exists'))
             , $App->Translater(array('RU'=>'Пожалуйста, укажите другой логин.', 'EN'=>'An account with the specified login already exists. Please enter a different username.'))
@@ -34,14 +34,14 @@ $captcha =  $this->Properties()->getVar('captcha');
     }
 
     if($this->Properties()->getState()=='missmatch'){
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/display/nodes/others/Warning.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/nodes/expansion/others/Warning.php';
         new Warning(
             $App->Translater(array('RU'=>'Данные с картинки не соответствуют введёным.', 'EN'=>'The data from the image does not match input.'))
         );
     }
 
     if($this->Properties()->getState()=='misstype'){
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/display/nodes/others/Warning.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/nodes/expansion/others/Warning.php';
         new Warning(
             $App->Translater(array('RU'=>'Введённые пароли не совпадают.', 'EN'=>'The passwords do not match.'))
         );

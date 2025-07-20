@@ -37,15 +37,18 @@ class ThemeRuler {
      */
     public function getThemeByName($name){
         $i=0;
-        //var_dump($this->themes);
         foreach($this->themes as &$thm) if($thm->getName()==$name) {$this->selectedTheme=$i; return $thm;} else $i++;
         return null;
     }
 
     /**
-     * @return Theme
+     * @return ?Theme
      */
-    public function Get($context){
-        return $this->themes[$this->selectedTheme]->setContext($context);
+    public function Get($context) {
+        if ($this->themes) {
+            return $this->themes[$this->selectedTheme]->setContext($context);
+        }
+
+        return null;
     }
 }

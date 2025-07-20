@@ -18,12 +18,6 @@ class PageProps {
     private $state;
 
     private $vars;
-    /*
-        function __construct()
-        {
-
-        }
-    */
 
     public function setProps($h1, $title = null, $keywords = null, $description = null, $icon = null, $metric = null){
         if (CIE::l($title)) $this->title = $title;

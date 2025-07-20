@@ -2,7 +2,7 @@
 namespace app\display\nodes\menu;
 
 use app\utilities\inner\menus\MenuRecModel;
-use app\utilities\inner\menus\Menu;
+use app\nodes\menus\Menu;
 
 abstract class TopMenuTMPLT extends Menu {
     public function Draw($menu){

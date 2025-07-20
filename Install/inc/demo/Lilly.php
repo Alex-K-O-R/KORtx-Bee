@@ -18,7 +18,7 @@ $about .= "I'm studying at the 4th grade of Computer Science department in Color
 $about .= "All the way through the childhood I've found myself addicted to science and science fiction things.";
 $about .= "Asimov Isaack, National Geographic and Star Trek were the favorites. \r\n";
 $about .= "I'm sured that knowledge and studies would do the world a better place for a living! \r\n";
-$UsrDba->updateAdditionalInfo($Lillian->getUserId(), $about, $EN_lang_id, $DBModCntxt);
+$UsrDba->updateAdditionalInfo($Lillian->getUserId(), nl2br($about), $EN_lang_id, $DBModCntxt);
 //RU
 $UsrDba->updateName($Lillian->getUserId(), 'Лиллиан', $RU_lang_id, $DBModCntxt);
 $UsrDba->updateSurname($Lillian->getUserId(), 'Джефферсон', $RU_lang_id, $DBModCntxt);
@@ -29,7 +29,7 @@ $about .= "Учусь на 4 курсе в государственном инс
 $about .= "Определённое притяжение к фантастике и науке у меня есть с раннего возраста.";
 $about .= "Например, мне очень нравились труды Азимова Айзека, журналы NatGeo и сага Star Trek. \r\n";
 $about .= "Я уверена, что познание и исследования определённо сделают Мир лучше! \r\n";
-$UsrDba->updateAdditionalInfo($Lillian->getUserId(), $about, $RU_lang_id, $DBModCntxt);
+$UsrDba->updateAdditionalInfo($Lillian->getUserId(), nl2br($about), $RU_lang_id, $DBModCntxt);
 
 
 $UsrDba->updateUserAvatarPath($Lillian, $InstallationSourcePath.'/inc/demo/avatars/Avatar_g1.png', $DBModCntxt);

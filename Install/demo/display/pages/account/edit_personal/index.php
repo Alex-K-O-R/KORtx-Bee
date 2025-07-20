@@ -21,7 +21,7 @@ $User = $this->Properties()->getVar('user');
     <?
     if($this->Properties()->getState()==='novice'){
         ?><br/><?
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/display/nodes/others/Warning.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/nodes/expansion/others/Warning.php';
         new Warning("", $App->Translater(array('RU'=>'Впервые на сайте? Пожалуйста, добавьте информацию о себе.', 'EN'=>'First time here? Please, provide some info about yourself.')));
     }
     ?>
@@ -118,7 +118,7 @@ $User = $this->Properties()->getVar('user');
                                 <?=$App->Translater(array('RU'=>'О себе (подробно)', 'EN'=>'About (details)'))?>:
                             </h4><br/>
                             <?
-                            require_once $_SERVER['DOCUMENT_ROOT'] . '/display/nodes/editors/TextEditor.php';
+                            require_once $_SERVER['DOCUMENT_ROOT'] . '/nodes/expansion/editors/TextEditor.php';
                             new \app\display\nodes\TextEditor(
                                 'about_detailed', 'details', $User->getDAdditionalInfo());
                             ?>

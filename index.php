@@ -11,7 +11,7 @@ if(isset($_GET)&&isset($_GET[$showErrorsAndWarningsKey])||isset($_SERVER['HTTP_R
 }
 
 if(!is_file($_SERVER['DOCUMENT_ROOT'].'/Install/Done.txt')){
-    include_once($_SERVER['DOCUMENT_ROOT'].'/Install/index.php');
+    require_once($_SERVER['DOCUMENT_ROOT'].'/Install/index.php');
 } else {
     //if (($_SERVER['REQUEST_URI']==='/') and (($_SERVER['REMOTE_ADDR']==='84.53.246.198') or (isset($_SESSION['is'])) and ($_SESSION['is']=='first_lookup'))) {
         //$site = new Application($_SERVER['REQUEST_URI']);
@@ -20,7 +20,10 @@ if(!is_file($_SERVER['DOCUMENT_ROOT'].'/Install/Done.txt')){
         //require_once $_SERVER['DOCUMENT_ROOT'] . '/APILoader.php';
         //$site = new APIPart($_SERVER['REQUEST_URI']);
     //} else {
-    include_once($_SERVER['DOCUMENT_ROOT'].'/Loader.php');
+
+    require_once($_SERVER['DOCUMENT_ROOT'].'/Loader.php');
+
+
     $site = new app\WebUIApplication($_SERVER['REQUEST_URI']);
 }
 ?>

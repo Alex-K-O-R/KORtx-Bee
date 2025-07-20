@@ -145,7 +145,7 @@ $pgMax = intval($this->Properties()->getVar('page_volume'));
     <?
         }
 
-    require_once $_SERVER['DOCUMENT_ROOT'].'/display/nodes/others/Paginator.php';
+    require_once $_SERVER['DOCUMENT_ROOT'].'/nodes/expansion/others/Paginator.php';
     (new Paginator())->pager($Totals, $pgMax, $page)->render(null,true,true);
     } else {?>
         <div class="form-block-3 w-form">

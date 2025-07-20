@@ -27,7 +27,7 @@ class DBAccess extends DBAccessGeneric {
 
     public function escape_string($string)
     {
-        return mysqli_escape_string($this->conn_provider->get(), $string);
+        return mysqli_escape_string($this->conn_provider->get(), $string ?? '');
     }
 
 

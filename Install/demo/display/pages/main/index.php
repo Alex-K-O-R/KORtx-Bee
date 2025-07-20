@@ -25,7 +25,7 @@ $App = $this->Application();
         <div class="row">
         <div class="container-top">
             <div class="about-author">
-                <h3><?=$App->Translater(array('RU'=>'Об авторе (обо мне, то есть)', 'EN'=>'About author (means about myself)'))?>.</h3>
+                <h3><?=$App->Translater(array('RU'=>'Об авторе (обо мне то есть)', 'EN'=>'About author (means about myself)'))?>.</h3>
                 <?
                 $authorTxtBlock = $App->TryGetTranslated('about.php');
                 if($authorTxtBlock) require_once $authorTxtBlock;

@@ -13,6 +13,7 @@ use app\constants\DefaultImages;
  */
 class UserMDL extends _UserMDL {
     //user_info
+    protected $resource_hash;
     protected $d_general_info;
     protected $d_additional_info;
     protected $d_name;

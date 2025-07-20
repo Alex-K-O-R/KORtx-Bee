@@ -5,7 +5,7 @@ use app\Application;
 use app\dba\constants\DBSettings;
 use app\dba\inners\_SecurityDBA;
 use app\dba\inners\_UserDBA;
-use app\dba\inners\LogDBA;
+use app\dba\inners\_LogDBA;
 use app\dba\constants\DBChanges;
 use app\models;
 use app\models\UserMDL;
@@ -44,9 +44,9 @@ class UserDBA extends _UserDBA{
             , 'row');
         if ($row && $row = $row['0']) {
             if ($ModContext == null) {
-                LogDBA::logSystemAction($this, $uid, self::EntityCode(), !$row, $row, 'Installation', 'Changed SA rights for user with id ['.$uid.']', DBChanges::auto, DBChanges::level_high);
+                _LogDBA::logSystemAction($this, $uid, self::EntityCode(), !$row, $row, 'Installation', 'Changed SA rights for user with id ['.$uid.']', DBChanges::auto, DBChanges::level_high);
             } else {
-                LogDBA::logUserAction($ModContext, !$row, $row, 'Changed SA rights for user with id ['.$uid.']', DBChanges::level_high);
+                _LogDBA::logUserAction($ModContext, !$row, $row, 'Changed SA rights for user with id ['.$uid.']', DBChanges::level_high);
             }
             return $row;
         } else return null;
@@ -136,7 +136,7 @@ class UserDBA extends _UserDBA{
      */
     public function createHashDirectoryForUser($uid, $login){
         $salt = DBSettings::dbprfx.'--'.$uid.'++'.$login;
-        $hash = FileDBA::createHashForDirectory($salt, 10);
+        $hash = FileDBA::createHashForDirectory($salt, 16);
         $res = $this->query(
             $this->UPDATE_RETURNING_TRICK_SQL(
                 'UPDATE '.self::table.' SET resource_hash =\''.$hash.'\' WHERE user_id = '.$uid.' '
@@ -177,7 +177,7 @@ class UserDBA extends _UserDBA{
                 //print $row[0]." Vs "."$newFilePath"; exit;
                 FileDBA::removeFile(FileDBA::DIR_PATH($hash).$row[0]);
             }
-            LogDBA::logUserAction($ModCntxt, $row[0], $newFilePath, 'Uploaded new photo for user: '.$UserMDL->getUserId());
+            _LogDBA::logUserAction($ModCntxt, $row[0], $newFilePath, 'Uploaded new photo for user: '.$UserMDL->getUserId());
         }
     }
 
@@ -203,7 +203,7 @@ class UserDBA extends _UserDBA{
         if($delete_resource_directory) FileDBA::removeDirectory(FileDBA::DIR_PATH($UserMDL->getResourceHash()));
 
         if ($this->query('DELETE from '.self::table.' WHERE user_id = \''.$UserMDL->getUserId().'\';')) {
-            LogDBA::logUserAction($ModificationContext, $UserMDL->getUserId(), null, 'User was removed: '.$UserMDL->getLogin(), DBChanges::level_medium);
+            _LogDBA::logUserAction($ModificationContext, $UserMDL->getUserId(), null, 'User was removed: '.$UserMDL->getLogin(), DBChanges::level_medium);
             return true;
         } else return false;
     }

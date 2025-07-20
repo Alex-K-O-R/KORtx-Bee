@@ -1,12 +1,8 @@
 <?php
 namespace app\dba;
 
-use app\Application;
 use app\dba\constants\DBSettings;
-use app\Core;
-use app\dba\constants\DBChanges;
-use app\utilities\inner\CIE;
-use app\utilities\inner\CIS;
+use app\utilities\inner\Array_;
 
 interface IModelDataProvider {
     public function GLOBAL_getAllForAllSQL();
@@ -48,7 +44,7 @@ abstract class DBAccessGeneric {
 
         if($row){ TODO: check if code is okay =[0]
             //$row = $row[0];
-            return 'SELECT '.implode(',',array_keys($row)).'*/
+            return 'SELECT '.Array_::implode(',',array_keys($row)).'*/
         return 'WITH base_sql as (
                     SELECT *, ROW_NUMBER() OVER (ORDER BY '.(($page->getOrderByField())?'wRows.'.$page->getOrderByField():'1').' '.(($page->getOrderDirection())?$page->getOrderDirection():'').') as rNum
                          FROM  (
@@ -66,7 +62,7 @@ abstract class DBAccessGeneric {
 
     final protected static function fields_from($fields, $from){
         if (is_string($fields)) $fields = explode(',', $fields);
-        return implode(preg_filter('/^/', $from.'.', $fields), self::AND_);
+        return Array_::implode(preg_filter('/^/', $from.'.', $fields), self::AND_);
     }
 
 
@@ -78,7 +74,7 @@ abstract class DBAccessGeneric {
             'SELECT string_id, lang_id, value FROM '.self::table.' WHERE 1=1 '
                 .($ent_id === null?'':' AND entity_id = \''.$ent_id.'\'')
                 .($lang_id === null?'':' AND lang_id = \''.$lang_id.'\'')
-                .' AND string_id IN ('.implode(',', $stringIds).') ORDER BY string_id'
+                .' AND string_id IN ('.Array_::implode(',', $stringIds).') ORDER BY string_id'
             , 'arr');
     }
 
@@ -88,7 +84,7 @@ abstract class DBAccessGeneric {
         return $this->query(
             'SELECT string_id, count(lang_id) FROM '.self::table.'
             WHERE 2=2 '.($ent_id === null?'':' AND entity_id = \''.$ent_id.'\'').'
-            and string_id IN ('.implode(',', $stringIds).')
+            and string_id IN ('.Array_::implode(',', $stringIds).')
             --AND lang_id <> 0
             GROUP BY string_id', 'arr');
     }
@@ -111,7 +107,7 @@ abstract class DBAccessGeneric {
 
 
     final protected function updateDynamicStringById($string_id, $lang_id, $value = ''){
-        $query = self::historicalUpdate(self::table, 'value', $value, 'string_id', $string_id, $lang_id);
+        $query = $this->historicalUpdate(self::table, 'value', $value, 'string_id', $string_id, $lang_id);
         if ($query) {
             return $query[0];
         } else return null;
@@ -142,7 +138,7 @@ abstract class DBAccessGeneric {
         if(!is_array($string_ids)) $string_ids = array($string_ids);
         $string_ids = array_filter($string_ids, function($a){if(isset($a)&&$a!='') return $a;});
         if(count($string_ids)<1) return null;
-        return implode(',', $string_ids);
+        return Array_::implode(',', $string_ids);
     }
 
     final protected function deleteAllDynamicStringsForEntity($ent_id, $ent_type, $delAck){
@@ -157,7 +153,7 @@ abstract class DBAccessGeneric {
             'SELECT string_id, value FROM '.self::table.' WHERE 7=7 '
                 .($ent_id === null?'':' AND entity_id = \''.$ent_id.'\'')
                 .' AND lang_id = \''.$lang_id.'\''
-                .' AND value IN ('.implode(',', $values).')'
+                .' AND value IN ('.Array_::implode(',', $values).')'
             , 'arr');
     }
 
