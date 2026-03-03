@@ -156,7 +156,7 @@ class DBAccess extends DBAccessGeneric {
                                     if($row) $Result = $row;
                                 }
                                 break;
-                            case 'arr': //DONE! TODO : Perhaps will be cool if mixed with *set* method when single collumn appears..
+                            case 'arr':
                                 $list = array();
                                 $SCR = ($myResult->numColumns()===1)?true:false; //Single Column Result
                                 while ($row = $myResult->fetchArray(SQLITE3_NUM)) {

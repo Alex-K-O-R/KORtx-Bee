@@ -1,22 +1,11 @@
 <?php
 namespace app\dba;
 
-use app\dba\constants\DBSettings;
-use app\dba\inners\_SecurityDBA;
-use app\dba\inners\_UserDBA;
-use app\dba\inners\_LogDBA;
-use app\dba\constants\DBChanges;
-use app\dba\inners\_WebPortalDBA;
-use app\models;
-use app\models\UserMDL;
-use app\utilities\inner\CIE;
-use app\utilities\inner\CIS;
-
-class WebPortalDBA extends _WebPortalDBA{
+class WebPortalDBA extends inners\WebPortalDBA{
 
     public function getFavoriteUsersIdsForUser($uid){
         return $this->query(
-            _WebPortalDBA::getFavoritesForEntitySQL(UserDBA::EntityCode(), $uid, UserDBA::EntityCode())
+            WebPortalDBA::getFavoritesForEntitySQL(UserDBA::EntityCode(), $uid, UserDBA::EntityCode())
             , 'arr');
     }
 
@@ -41,7 +30,7 @@ class WebPortalDBA extends _WebPortalDBA{
      */
     public function removeFavoriteUserForUser($uid, $fav_uid){
         $row = $this->query(
-            _WebPortalDBA::removeFavoriteOrBannedOrDislikedRelationsForEntitySQL(UserDBA::EntityCode(), $uid, UserDBA::EntityCode(), $fav_uid)
+            WebPortalDBA::removeFavoriteOrBannedOrDislikedRelationsForEntitySQL(UserDBA::EntityCode(), $uid, UserDBA::EntityCode(), $fav_uid)
             , 'row');
         if($row && $row[0]) return false;
         return null;

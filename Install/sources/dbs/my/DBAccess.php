@@ -27,7 +27,7 @@ class DBAccess extends DBAccessGeneric {
 
     public function escape_string($string)
     {
-        return mysqli_escape_string($this->conn_provider->get(), $string ?? '');
+        return mysqli_real_escape_string($this->conn_provider->get(), $string ?? '');
     }
 
 
@@ -43,7 +43,6 @@ class DBAccess extends DBAccessGeneric {
     final protected function historicalUpdate($table, $field, $value, $keyField, $keyVal, $lang_id){
         if(CIS::l($keyVal)===null||!CIS::l($keyField)===null||!CIS::l($lang_id)===null && $keyField==='string_id') return null;
 
-        $value = $this->escape_string($value);
         if(!is_bool($value) && !is_numeric($value)) {
             $value = "'".$value."'";
         }
@@ -68,7 +67,7 @@ class DBAccess extends DBAccessGeneric {
     final protected function addDynamicString($ent_type, $lang_id, $value = '', $string_id = null){
         if(!$ent_type) return null;
         $lang_id = intval($lang_id);
-        $value = $this->escape_string($value);
+
         if($string_id===null || $string_id ===''){
             $query = $this->query(
                 $this->INSERT_RETURNING_TRICK_SQL(
@@ -125,11 +124,14 @@ class DBAccess extends DBAccessGeneric {
                             }
 
                             break;
-                        case 'arr': //DONE! TODO : Perhaps will be cool if mixed with *set* method when single collumn appears..
+                        case 'arr':
                             $list = array();
+                            $SCR = (mysqli_num_fields($myResult)===1)?true:false;; //Single Column Result
+
                             while ($row = mysqli_fetch_row($myResult)) {
-                                $list[] = $row;
+                                $list[] = ($SCR)?$row[0]:$row;
                             }
+
                             $Result = $list;
                             break;
                         case 'aff':

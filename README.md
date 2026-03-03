@@ -11,9 +11,14 @@ You're observing the installer. Simply copy files to the host, load index.php, t
 **Next settings had to be checked before the install:**
 [PHP.ini]  
 short_open_tag = On; <-- Had been planned to deprecate or even to remove https://wiki.php.net/rfc/deprecate_php_short_tags !!! This is INSANE!
-extension=php_curl.dll  
-extension=php_gd2.dll  
-extension=php_mbstring.dll  
+extension=php_curl.dll
+extension=php_mbstring.dll
+AND
+(
+	extension=php_gd.dll
+OR
+	extension=php_gd2.dll
+)
 AND  
 (  
 	extension=php_mysqli.dll  

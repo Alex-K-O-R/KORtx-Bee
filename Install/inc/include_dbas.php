@@ -2,13 +2,13 @@
 require_once($_SERVER['DOCUMENT_ROOT'].'/constants/DBChanges.php');
 require_once($rootCrPath.'/dba/DBModificationContext.php');
 require_once($rootCrPath.'/dba/Page.php');
-require_once($rootCrPath.'/dba/classes/_LogDBA.php');
-require_once($rootCrPath.'/utilities/Array_.php');
-require_once($rootCrPath.'/dba/classes/_SecurityDBA.php');
-require_once($rootCrPath.'/dba/classes/_UserDBA.php');
+require_once($rootCrPath.'/dba/classes/LogDBA.php');
+require_once($rootCrPath.'/utilities/Arrays.php');
+require_once($rootCrPath.'/dba/classes/SecurityDBA.php');
+require_once($rootCrPath.'/dba/classes/UserDBA.php');
 require_once($rootCrPath.'/models/inner/DynamicsModelContainer.php');
 require_once($rootCrPath.'/models/inner/SecurityMDL.php');
-require_once($rootCrPath.'/models/_UserMDL.php');
+require_once($rootCrPath.'/models/UserMDL.php');
 require_once($rootCrPath.'/utilities/MathEtc.php');
 require_once($rootCrPath.'/utilities/DataConversion.php');
 

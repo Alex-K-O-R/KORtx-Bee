@@ -10,7 +10,7 @@ $style = array(
 
 $js = array(
     'jquery.min.js'
-    ,'KORtx/global-apply.js'
+    ,'KORtx/global-favorites.js'
     ,'KORtx/KShowPassword.js'
     ,'KORtx/utilities/Procedures.js'
 );

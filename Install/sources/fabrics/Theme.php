@@ -2,7 +2,7 @@
 namespace app\pages;
 
 use app\constants\PageResources;
-use app\utilities\inner\CIE;
+use app\nodes\NodeManager;
 
 class Theme {
     private $name;
@@ -11,7 +11,7 @@ class Theme {
     private $header;
     private $footer;
     /**
-     * @var app\Pages\Page
+     * @var Page
      */
     private $Context;
 
@@ -30,6 +30,10 @@ class Theme {
         $this->Context = $Page;
         return $this;
     }
+
+    /**
+     * @return Page
+     */
     public function Page(){
         return $this->Context;
     }
@@ -38,9 +42,13 @@ class Theme {
         return $this->name;
     }
 
+    private function getCssString($link): string
+    {
+        return '<link rel="stylesheet" type="text/css" href="' . $link . '" media="all" />';
+    }
     private function cssTemplate($css){
         $link = PageResources::getFullPathToCSS($css);
-        if(is_readable($_SERVER['DOCUMENT_ROOT'].$link))return '<link rel="stylesheet" type="text/css" href="'.$link.'" media="all" />';
+        if(is_readable($_SERVER['DOCUMENT_ROOT'].$link)) return $this->getCssString($link);
     }
     public function getCss()
     {
@@ -49,6 +57,13 @@ class Theme {
             foreach($this->css as &$css) $tmp .= $this->cssTemplate($css);
         else
             $tmp .= $this->cssTemplate($this->css);
+
+        $nodesCss = NodeManager::getCss();
+
+        foreach ($nodesCss as &$css) {
+            $tmp .= $this->getScriptString($css);
+        }
+
         return $tmp;
     }
 
@@ -68,17 +83,15 @@ class Theme {
         if(is_readable($path))require_once($path);
     }
 
+    private function getScriptString($link, $scriptDirective = null): string
+    {
+        return '<script src="' . $link . '" type="text/javascript"' . ($scriptDirective ? ' '.$scriptDirective : '') . '></script>';
+    }
     private function jsTemplate($script){
-        /*$tmp = explode(' ', $script);
-        $last = 0;
-        for($i = count($tmp); $i > 0; $i--){
-            if(Array_::endsWith($tmp[$i], '.js'))
-        }
-        */
         //TODO No .js.js protection
         $tmp = stripos($script, '.js')+3;
         $link = PageResources::getFullPathToJS(substr($script, 0, $tmp));
-        if(is_readable($_SERVER['DOCUMENT_ROOT'].$link)) return '<script src="'.$link.'" type="text/javascript"'.(substr($script, $tmp, strlen($script))).'></script>';
+        if(is_readable($_SERVER['DOCUMENT_ROOT'].$link)) return $this->getScriptString($link, (substr($script, $tmp, strlen($script))));
     }
     public function getJs()
     {
@@ -87,6 +100,13 @@ class Theme {
             foreach($this->js as &$script) $tmp .= $this->jsTemplate($script);
         else
             $tmp .= $this->jsTemplate($this->js);
+
+        $nodesScripts = NodeManager::getJs();
+
+        foreach ($nodesScripts as &$js) {
+            $tmp .= $this->getScriptString($js);
+        }
+
         return $tmp;
     }
 }

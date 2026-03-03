@@ -7,7 +7,7 @@ use app\filters\models\simple_UserFLTR;
 use app\filters\models\user_control_FLTR;
 use app\models\UserMDL;
 use app\pages\Pages;
-use app\utilities\inner\Array_;
+use app\utilities\inner\Arrays;
 use app\utilities\inner\CIE;
 use app\utilities\inner\CIS;
 use app\dba\ModelProcessor;
@@ -89,7 +89,7 @@ class WebUIApplication extends Application {
                 }
 
                 $UserCount = $this->getUserDBA()->getCountTopUserSQL($Filter);
-                $Users = Array_::varToArray(ModelProcessor::loadModelsForLanguage(
+                $Users = Arrays::varToArray(ModelProcessor::loadModelsForLanguage(
                     UserMDL::TYPE(),
                     $UserList = $this->getUserDBA()->getUsersInfoesByUsersIds($page_vol,$page,$Filter),
                     $this->getUserDBA(),
@@ -144,7 +144,7 @@ class WebUIApplication extends Application {
 
             case Pages::login:
                 $this->Profiler->Start();
-                $login = trim(CIS::l($post, 'login', null));
+                $login = trim(CIS::l($post, 'login', '') ?? '');
                 if ($post) {
                     if ($login && CIS::l($post, 'password') && $this->getUserDBA()->checkAuth($post['login'], $post['password'])) {
                         $User = $this->getUserDBA()->getUserInfoByLogin($login);
@@ -422,7 +422,7 @@ class WebUIApplication extends Application {
                 $this->Page()->Properties()->addVar('filter', $Filter);
 
                 $UserCount = $this->getUserDBA()->getCountTopUserSQL($Filter);
-                $Users = Array_::varToArray(ModelProcessor::loadModelsForLanguage(
+                $Users = Arrays::varToArray(ModelProcessor::loadModelsForLanguage(
                     UserMDL::TYPE(),
                     $UserList = $this->getUserDBA()->getUsersInfoesByUsersIds(3,0,$Filter),
                     $this->getUserDBA(),
@@ -492,9 +492,9 @@ class WebUIApplication extends Application {
 
 
             case Pages::db_client:
-                if($this->getUserInfo() && $this->getUserInfo()->getIsAdmin())
+                if($this->getUserInfo() && $this->getUserInfo()->getIsAdmin()) {
                     require_once($_SERVER['DOCUMENT_ROOT'].'/utilities/dbclient/adminer.php');
-                else $this->RedirectTo('404');
+                } else $this->RedirectTo('404');
                 break;
 
             default:

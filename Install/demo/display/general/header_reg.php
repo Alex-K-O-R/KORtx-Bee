@@ -1,9 +1,9 @@
 <?
 use app\WebUIApplication;
-use app\display\nodes\menu\LanguageMenu;
-use app\display\nodes\menu\TopMenuReg;
 use app\pages\Pages;
 use app\pages\Theme;
+use app\nodes\menus\LanguageMenu;
+use app\nodes\menus\TopGeneralMenu;
 
 /**
  * @var $this Theme
@@ -60,14 +60,15 @@ $App = $this->Page()->Application();
             <div class="outset">
                 <div class="header-lang-selector header-icon">
                     <?
-                    require_once $_SERVER['DOCUMENT_ROOT'] . '/nodes/expansion/menus/LanguageMenu.php';
-                    LanguageMenu::Draw($App, $App->getSupportedLanguageInfo());
+                        LanguageMenu\LanguageMenu::Draw($App, LanguageMenu\LanguageMenuOptions::buildFromParameters(
+                            $App->getSupportedLanguageInfo()
+                        ));
                     ?>
                 </div>
                 <?
-                require_once $_SERVER['DOCUMENT_ROOT'].'/nodes/expansion/menus/center/TopMenuTMPLT.php';
-                require_once $_SERVER['DOCUMENT_ROOT'].'/nodes/expansion/menus/center/TopMenuReg.php';
-                new TopMenuReg($this->Page());
+                    TopGeneralMenu\TopGeneralMenu::Draw($App, TopGeneralMenu\TopGeneralMenuOptions::buildFromParameters(
+                        $App
+                    ));
                 ?>
             </div>
         </div>

@@ -79,7 +79,6 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/core/original/dba/DBAccessGeneric.php')
 require_once($_SERVER['DOCUMENT_ROOT'].'/core/original/dba/FilterToDbOperatorConverter.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/core/original/dba/FilterConverter.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/core/original/models/inner/SecurityMDL.php');
-require_once($_SERVER['DOCUMENT_ROOT'].'/core/expansion/dba/DBALoader.php');
 Loader::load($_SERVER['DOCUMENT_ROOT'].'/core/original/dba');
 Loader::load($_SERVER['DOCUMENT_ROOT'].'/core/original/models');
 Loader::load($_SERVER['DOCUMENT_ROOT'].'/core/expansion/dba');
@@ -91,18 +90,18 @@ Loader::load($_SERVER['DOCUMENT_ROOT'].'/constants');
 //Утилиты
 Loader::load($_SERVER['DOCUMENT_ROOT'].'/core/original/utilities');
 Loader::load($_SERVER['DOCUMENT_ROOT'].'/core/expansion/utilities');
+require_once($_SERVER['DOCUMENT_ROOT'].'/core/original/VariablesContainer.php');
 
 // Классы визуализатора;
-Loader::load($_SERVER['DOCUMENT_ROOT'].'/core/original/fabrics');
 require_once($_SERVER['DOCUMENT_ROOT'].'/core/expansion/fabrics/PageThemes.php');
+Loader::load($_SERVER['DOCUMENT_ROOT'].'/core/original/fabrics');
 require_once($_SERVER['DOCUMENT_ROOT'].'/core/expansion/fabrics/Pages.php');
 
 // Классы приложения
 require_once($_SERVER['DOCUMENT_ROOT'].'/core/original/AppFilter.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/core/original/Application.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/core/original/ModelProcessor.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/core/original/NodeManager.php');
 Loader::load($_SERVER['DOCUMENT_ROOT'].'/core/expansion/');
 require_once($_SERVER['DOCUMENT_ROOT'].'/WebUI.php');
-
-Loader::load($_SERVER['DOCUMENT_ROOT'].'/nodes', '.php', ['/(.*)original(.*)/','/(.*)TMPLT(.*)/', '/Menu(.*)/','/(.*)expansion(.*)/']);
 ?>

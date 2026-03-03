@@ -2,7 +2,6 @@
 namespace app\models;
 
 use app\models\inner\DynamicsModelContainer;
-use app\models\inner\_UserMDL;
 use app\utilities\inner\DataConversion;
 use app\dba\FileDBA;
 use app\constants\DefaultImages;
@@ -11,7 +10,7 @@ use app\constants\DefaultImages;
  * Class UserMDL
  * @package app\models
  */
-class UserMDL extends _UserMDL {
+class UserMDL extends inner\UserMDL {
     //user_info
     protected $resource_hash;
     protected $d_general_info;

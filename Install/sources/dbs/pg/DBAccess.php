@@ -137,20 +137,18 @@ class DBAccess extends DBAccessGeneric {
                     case 'row':
                         return pg_fetch_row($pgResult);
                         break;
-                    case 'arr': //DONE! TODO : Perhaps will be cool if mixed with *set* method when single collumn appears..
+                    case 'arr':
                         $list = array();
                         $SCR = null; //Single Column Result
-                        //print_r($rw = pg_fetch_array($pgResult, NULL, PGSQL_NUM));
-                        //Core::__500Report('----------------------Step by step------------------------------');
+
                         while ($row = pg_fetch_array($pgResult, NULL, PGSQL_NUM)) {
                             $list[] = $row;
-                            //Core::__500Report('> '.print_r($row, true));
+
                             if($SCR === null){
-                                //Core::__500Report('>> '.print_r(count($row), true));
                                 if(count($row)<2){return pg_fetch_all_columns($pgResult);}else{$SCR = false;}
                             }
                         }
-                        //Core::__500Report("\r\n-\r\n-\r\n-");
+
                         return $list;
                         break;
                     case 'aff':

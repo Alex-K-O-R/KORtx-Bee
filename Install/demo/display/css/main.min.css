@@ -12,11 +12,6 @@
     font-family: MyriadPro-Regular;
     font-weight: 400;
     font-style: normal;
-    src: url( ./fonts/MyriadProRegular/MyriadProRegular .eot);
-    src: url( ./fonts/MyriadProRegular/MyriadProRegular .eot?#iefix) format("embedded-opentype"),url(
-
-../fonts/MyriadProRegular/MyriadProRegular.woff) format("woff"),url(
-../fonts/MyriadProRegular/MyriadProRegular.ttf) format("truetype")
 }
 
 *, ::after, ::before {

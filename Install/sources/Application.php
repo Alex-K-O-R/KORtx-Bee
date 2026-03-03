@@ -8,9 +8,9 @@ use app\pages\Page;
 use app\pages\Pages;
 use app\pages\ThemeRuler;
 use app\dba\LoadDbas;
-use app\dba\inners\_WebPortalDBA;
+use app\dba\inners\WebPortalDBA;
 use app\models\inner\LanguageMDL;
-use app\models\inner\_UserMDL;
+use app\models\inner\UserMDL;
 use app\utilities\inner\CIE;
 use app\utilities\inner\CIS;
 
@@ -145,7 +145,7 @@ abstract class Application implements ICoreSettings {
     }
 
     /**
-     * @return _UserMDL
+     * @return UserMDL
      */
     public function getUserInfo()
     {
@@ -222,7 +222,7 @@ abstract class Application implements ICoreSettings {
     }
 
     /**
-     * @param $User _UserMDL
+     * @param $User UserMDL
      */
     protected function refreshSessionObjects($User = null){
         if($User){

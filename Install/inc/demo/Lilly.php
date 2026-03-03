@@ -13,11 +13,11 @@ $UsrDba->updateName($Lillian->getUserId(), 'Lillian', $EN_lang_id, $DBModCntxt);
 $UsrDba->updateSurname($Lillian->getUserId(), 'Jefferson', $EN_lang_id, $DBModCntxt);
 $UsrDba->updateProfession($Lillian->getUserId(), 'Computer Engineer (student)', $EN_lang_id, $DBModCntxt);
 $UsrDba->updateGeneralInfo($Lillian->getUserId(), 'Through a thorns to the stars!', $EN_lang_id, $DBModCntxt);
-$about = "Hi. I'm Lilly. \r\n";
-$about .= "I'm studying at the 4th grade of Computer Science department in Colorado State University. \r\n";
+$about = "Hi. I'm Lilly. <br/>";
+$about .= "I'm studying at the 4th grade of Computer Science department in Colorado State University. <br/>";
 $about .= "All the way through the childhood I've found myself addicted to science and science fiction things.";
-$about .= "Asimov Isaack, National Geographic and Star Trek were the favorites. \r\n";
-$about .= "I'm sured that knowledge and studies would do the world a better place for a living! \r\n";
+$about .= "Asimov Isaack, National Geographic and Star Trek were the favorites. <br/>";
+$about .= "I'm sured that knowledge and studies would do the world a better place for a living! <br/>";
 $UsrDba->updateAdditionalInfo($Lillian->getUserId(), nl2br($about), $EN_lang_id, $DBModCntxt);
 //RU
 $UsrDba->updateName($Lillian->getUserId(), 'Лиллиан', $RU_lang_id, $DBModCntxt);
@@ -25,10 +25,10 @@ $UsrDba->updateSurname($Lillian->getUserId(), 'Джефферсон', $RU_lang_i
 $UsrDba->updateProfession($Lillian->getUserId(), 'Инженер ИВТ (учусь)', $RU_lang_id, $DBModCntxt);
 $UsrDba->updateGeneralInfo($Lillian->getUserId(), 'Через тернии к звёздам!', $RU_lang_id, $DBModCntxt);
 $about = "Привет, я - Лилли. \r\n";
-$about .= "Учусь на 4 курсе в государственном институте Колорадо. Отделение компьютерных наук и естествознания.\r\n";
+$about .= "Учусь на 4 курсе в государственном институте Колорадо. Отделение компьютерных наук и естествознания.<br/>";
 $about .= "Определённое притяжение к фантастике и науке у меня есть с раннего возраста.";
-$about .= "Например, мне очень нравились труды Азимова Айзека, журналы NatGeo и сага Star Trek. \r\n";
-$about .= "Я уверена, что познание и исследования определённо сделают Мир лучше! \r\n";
+$about .= "Например, мне очень нравились труды Азимова Айзека, журналы NatGeo и сага Star Trek. <br/>";
+$about .= "Я уверена, что познание и исследования определённо сделают Мир лучше! <br/>";
 $UsrDba->updateAdditionalInfo($Lillian->getUserId(), nl2br($about), $RU_lang_id, $DBModCntxt);
 
 
