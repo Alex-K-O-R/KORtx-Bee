@@ -4,7 +4,7 @@ namespace app\utilities\inner;
 use app\Application;
 use app\utilities\inner\Currency;
 
-class Text_ {
+class Text {
 
     public static function text_correct($text)
     {
@@ -38,24 +38,24 @@ class Text_ {
     public static function processValueRussianDays($intVal)
     {
         $intVal = strval($intVal);
-        if(Array_::endsWith($intVal, 1) && !Array_::endsWith($intVal, 11)){return 'день';}
-        if(Array_::endsWith($intVal, 2) && !Array_::endsWith($intVal, 12)||Array_::endsWith($intVal, 3) && !Array_::endsWith($intVal, 13)||Array_::endsWith($intVal, 4) && !Array_::endsWith($intVal, 14)){return 'дня';}
+        if(Strings::endsWith($intVal, 1) && !Strings::endsWith($intVal, 11)){return 'день';}
+        if(Strings::endsWith($intVal, 2) && !Strings::endsWith($intVal, 12) || Strings::endsWith($intVal, 3) && !Strings::endsWith($intVal, 13) || Strings::endsWith($intVal, 4) && !Strings::endsWith($intVal, 14)){return 'дня';}
         return 'дней';
     }
 
     public static function processValueRussianViews($intVal)
     {
         $intVal = strval($intVal);
-        if(Array_::endsWith($intVal, 1) && !Array_::endsWith($intVal, 11)){return 'просмотр';}
-        if(Array_::endsWith($intVal, 2) && !Array_::endsWith($intVal, 12)||Array_::endsWith($intVal, 3) && !Array_::endsWith($intVal, 13)||Array_::endsWith($intVal, 4) && !Array_::endsWith($intVal, 14)){return 'просмотра';}
+        if(Strings::endsWith($intVal, 1) && !Strings::endsWith($intVal, 11)){return 'просмотр';}
+        if(Strings::endsWith($intVal, 2) && !Strings::endsWith($intVal, 12) || Strings::endsWith($intVal, 3) && !Strings::endsWith($intVal, 13) || Strings::endsWith($intVal, 4) && !Strings::endsWith($intVal, 14)){return 'просмотра';}
         return 'просмотров';
     }
 
     public static function processValueRussianVisitors($intVal)
     {
         $intVal = strval($intVal);
-        if(Array_::endsWith($intVal, 1) && !Array_::endsWith($intVal, 11)){return 'посетитель';}
-        if(Array_::endsWith($intVal, 2) && !Array_::endsWith($intVal, 12)||Array_::endsWith($intVal, 3) && !Array_::endsWith($intVal, 13)||Array_::endsWith($intVal, 4) && !Array_::endsWith($intVal, 14)){return 'посетителя';}
+        if(Strings::endsWith($intVal, 1) && !Strings::endsWith($intVal, 11)){return 'посетитель';}
+        if(Strings::endsWith($intVal, 2) && !Strings::endsWith($intVal, 12) || Strings::endsWith($intVal, 3) && !Strings::endsWith($intVal, 13) || Strings::endsWith($intVal, 4) && !Strings::endsWith($intVal, 14)){return 'посетителя';}
         return 'посетителей';
     }
 
@@ -67,8 +67,8 @@ class Text_ {
     public static function processValueRussianParticipants($intVal, $lang_acronym=Application::DEFAULT_LANGUAGE_ACRONYM)
     {
         $intVal = strval($intVal);
-        if(Array_::endsWith($intVal, 1) && !Array_::endsWith($intVal, 11)){return Application::GlobalTransliter(array('RU'=>'участник', 'EN'=>'participant'), $lang_acronym);}
-        if(Array_::endsWith($intVal, 2) && !Array_::endsWith($intVal, 12)||Array_::endsWith($intVal, 3) && !Array_::endsWith($intVal, 13)||Array_::endsWith($intVal, 4) && !Array_::endsWith($intVal, 14)){return Application::GlobalTransliter(array('RU'=>'участника', 'EN'=>'participants'), $lang_acronym);}
+        if(Strings::endsWith($intVal, 1) && !Strings::endsWith($intVal, 11)){return Application::GlobalTransliter(array('RU'=>'участник', 'EN'=>'participant'), $lang_acronym);}
+        if(Strings::endsWith($intVal, 2) && !Strings::endsWith($intVal, 12) || Strings::endsWith($intVal, 3) && !Strings::endsWith($intVal, 13) || Strings::endsWith($intVal, 4) && !Strings::endsWith($intVal, 14)){return Application::GlobalTransliter(array('RU'=>'участника', 'EN'=>'participants'), $lang_acronym);}
         return Application::GlobalTransliter(array('RU'=>'участников', 'EN'=>'participants'), $lang_acronym);
     }
 
@@ -81,16 +81,16 @@ class Text_ {
     private static function processValueWithSuffix_ov($intVal, $root, $lang_acronym=Application::DEFAULT_LANGUAGE_ACRONYM)
     {
         $intVal = strval($intVal);
-        if(Array_::endsWith($intVal, 1) && !Array_::endsWith($intVal, 11)){return $root;}
-        if(Array_::endsWith($intVal, 2) && !Array_::endsWith($intVal, 12)||Array_::endsWith($intVal, 3) && !Array_::endsWith($intVal, 13)||Array_::endsWith($intVal, 4) && !Array_::endsWith($intVal, 14)){return $root.Application::GlobalTransliter(array('RU'=>'а', 'EN'=>'s'), $lang_acronym);}
+        if(Strings::endsWith($intVal, 1) && !Strings::endsWith($intVal, 11)){return $root;}
+        if(Strings::endsWith($intVal, 2) && !Strings::endsWith($intVal, 12) || Strings::endsWith($intVal, 3) && !Strings::endsWith($intVal, 13) || Strings::endsWith($intVal, 4) && !Strings::endsWith($intVal, 14)){return $root.Application::GlobalTransliter(array('RU'=>'а', 'EN'=>'s'), $lang_acronym);}
         return $root.Application::GlobalTransliter(array('RU'=>'ов', 'EN'=>'s'), $lang_acronym);
     }
 
     public static function processValueRussianOffers($intVal)
     {
         $intVal = strval($intVal);
-        if(Array_::endsWith($intVal, 1) && !Array_::endsWith($intVal, 11)){return 'предложение';}
-        if(Array_::endsWith($intVal, 2) && !Array_::endsWith($intVal, 12)||Array_::endsWith($intVal, 3) && !Array_::endsWith($intVal, 13)||Array_::endsWith($intVal, 4) && !Array_::endsWith($intVal, 14)){return 'предложения';}
+        if(Strings::endsWith($intVal, 1) && !Strings::endsWith($intVal, 11)){return 'предложение';}
+        if(Strings::endsWith($intVal, 2) && !Strings::endsWith($intVal, 12) || Strings::endsWith($intVal, 3) && !Strings::endsWith($intVal, 13) || Strings::endsWith($intVal, 4) && !Strings::endsWith($intVal, 14)){return 'предложения';}
         return 'предложений';
     }
 
@@ -98,16 +98,16 @@ class Text_ {
     public static function processValueRussianCampaigns($intVal)
     {
         $intVal = strval($intVal);
-        if(Array_::endsWith($intVal, 1) && !Array_::endsWith($intVal, 11)){return 'акция';}
-        if(Array_::endsWith($intVal, 2) && !Array_::endsWith($intVal, 12)||Array_::endsWith($intVal, 3) && !Array_::endsWith($intVal, 13)||Array_::endsWith($intVal, 4) && !Array_::endsWith($intVal, 14)){return 'акции';}
+        if(Strings::endsWith($intVal, 1) && !Strings::endsWith($intVal, 11)){return 'акция';}
+        if(Strings::endsWith($intVal, 2) && !Strings::endsWith($intVal, 12) || Strings::endsWith($intVal, 3) && !Strings::endsWith($intVal, 13) || Strings::endsWith($intVal, 4) && !Strings::endsWith($intVal, 14)){return 'акции';}
         return 'акций';
     }
 
     public static function processValueRussianNews($intVal)
     {
         $intVal = strval($intVal);
-        if(Array_::endsWith($intVal, 1) && !Array_::endsWith($intVal, 11)){return 'новость';}
-        if(Array_::endsWith($intVal, 2) && !Array_::endsWith($intVal, 12)||Array_::endsWith($intVal, 3) && !Array_::endsWith($intVal, 13)||Array_::endsWith($intVal, 4) && !Array_::endsWith($intVal, 14)){return 'новости';}
+        if(Strings::endsWith($intVal, 1) && !Strings::endsWith($intVal, 11)){return 'новость';}
+        if(Strings::endsWith($intVal, 2) && !Strings::endsWith($intVal, 12) || Strings::endsWith($intVal, 3) && !Strings::endsWith($intVal, 13) || Strings::endsWith($intVal, 4) && !Strings::endsWith($intVal, 14)){return 'новости';}
         return 'новостей';
     }
 
@@ -273,7 +273,7 @@ echo transl("Какаято не реальная строка @$^*^&()&(5");
         $mail_segments[0] = substr($mail_segments[0], 0, 1) . str_repeat("*", 6) . substr($mail_segments[0], -2);
         $pos = strpos($mail_segments[1], '.');
         $mail_segments[1] = /*substr($mail_segments[1], 0, 1) .*/ str_repeat("*", 4) . substr($mail_segments[1], $pos);
-        return Array_::implode("@", $mail_segments);
+        return Arrays::implode("@", $mail_segments);
     }
 
 
@@ -289,8 +289,8 @@ echo transl("Какаято не реальная строка @$^*^&()&(5");
             if (count($text) > 2 && $text[1] == '') {
                 if ($text[0] != 'https:') $text[0] = 'http:';
                 if ($visual) $text = array_slice($text, 2);
-            } else return (($visual) ? '' : 'http://') . Array_::implode('/', $text);
-            return Array_::implode('/', $text);
+            } else return (($visual) ? '' : 'http://') . Arrays::implode('/', $text);
+            return Arrays::implode('/', $text);
         }
         else return ((intval($text)===$text)?'':$text);
     }

@@ -1,7 +1,7 @@
 <?
 use app\WebUIApplication;
 use app\pages\Pages;
-use app\display\nodes\Warning\Warning;
+use app\nodes\others\Warning;
 use app\pages\Page;
 
 /**
@@ -26,24 +26,30 @@ $captcha =  $this->Properties()->getVar('captcha');
 
     <?
     if($this->Properties()->getState()=='exists'){
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/nodes/expansion/others/Warning.php';
-        new Warning(
-            $App->Translater(array('RU'=>'Учётная запись с указанным логином уже существует.', 'EN'=>'An account with the specified login already exists'))
-            , $App->Translater(array('RU'=>'Пожалуйста, укажите другой логин.', 'EN'=>'An account with the specified login already exists. Please enter a different username.'))
+        Warning\Warning::Draw(
+            $App,
+            Warning\WarningOptions::buildFromParameters(
+                array('RU'=>'Учётная запись с указанным логином уже существует.', 'EN'=>'An account with the specified login already exists'),
+                array('RU'=>'Пожалуйста, укажите другой логин.', 'EN'=>'An account with the specified login already exists. Please enter a different username.')
+            )
         );
     }
 
     if($this->Properties()->getState()=='missmatch'){
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/nodes/expansion/others/Warning.php';
-        new Warning(
-            $App->Translater(array('RU'=>'Данные с картинки не соответствуют введёным.', 'EN'=>'The data from the image does not match input.'))
+        Warning\Warning::Draw(
+            $App,
+            Warning\WarningOptions::buildFromParameters(
+                array('RU'=>'Данные с картинки не соответствуют введёным.', 'EN'=>'The data from the image does not match input.')
+            )
         );
     }
 
     if($this->Properties()->getState()=='misstype'){
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/nodes/expansion/others/Warning.php';
-        new Warning(
-            $App->Translater(array('RU'=>'Введённые пароли не совпадают.', 'EN'=>'The passwords do not match.'))
+        Warning\Warning::Draw(
+            $App,
+            Warning\WarningOptions::buildFromParameters(
+                array('RU'=>'Введённые пароли не совпадают.', 'EN'=>'The passwords do not match.')
+            )
         );
     }
     ?>
@@ -85,7 +91,7 @@ $captcha =  $this->Properties()->getVar('captcha');
 
     <?} else {?>
         <div class="form-block w-form login">
-            <form class="form-2" action="<?=$this->Url()?>?debug" method="POST">
+            <form class="form-2" action="<?=$this->Url()?>" method="POST">
                 <div class="frm_center">
                     <strong class="bold-text"><?=$App->Translater($this->Properties()->getH1())?></strong>
                 </div>

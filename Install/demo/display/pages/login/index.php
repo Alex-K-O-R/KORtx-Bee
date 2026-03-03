@@ -1,6 +1,6 @@
 <?
 use app\WebUIApplication;
-use app\display\nodes\Warning\Warning;
+use app\nodes\others\Warning;
 use app\pages\Page;
 use app\pages\Pages;
 
@@ -21,30 +21,41 @@ $App = $this->Application();
     <?
     if($this->Properties()->getState()===WebUIApplication::AUTH_NO_ACCESS){
         ?><br/><?
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/nodes/expansion/others/Warning.php';
-        new Warning($App->Translater(array('RU'=>'Ошибка авторизации.', 'EN'=>'Authorization failed.')), $App->Translater(array('RU'=>'Неправильный логин, или пароль!', 'EN'=>'Wrong login or password!')));
+        Warning\Warning::Draw(
+            $App,
+            Warning\WarningOptions::buildFromParameters(
+                array('RU'=>'Ошибка авторизации.', 'EN'=>'Authorization failed.'),
+                array('RU'=>'Неправильный логин, или пароль!', 'EN'=>'Wrong login or password!')
+            )
+        );
     }
 
     if($this->Properties()->getState()===WebUIApplication::AUTH_NO_ACTIVATION){
         ?><br/><?
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/nodes/expansion/others/Warning.php';
-        new Warning(
-            $App->Translater(array('RU'=>'Учётная запись не активирована.', 'EN'=>'The account is not activated.'))
-            ,$App->Translater(array(
-                    'RU'=>'Учётная запись активируется администраторами. Пожалуйста, ожидайте активации.'
-                , 'EN'=>'User account is activated by administrators. Please wait.')
+        Warning\Warning::Draw(
+            $App,
+            Warning\WarningOptions::buildFromParameters(
+                array('RU'=>'Учётная запись не активирована.', 'EN'=>'The account is not activated.'),
+                array(
+                    'RU'=>'Учётная запись активируется администраторами. Пожалуйста, ожидайте активации.',
+                    'EN'=>'User account is activated by administrators. Please wait.'
+                )
             )
         );
     }
 
     if($this->Properties()->getState()===WebUIApplication::AUTH_BLOCKED){
         ?><br/><?
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/nodes/expansion/others/Warning.php';
-        new Warning($App->Translater(array('RU'=>'Учётная запись заблокирована!', 'EN'=>'User account has been blocked!')));
+        Warning\Warning::Draw(
+            $App,
+            Warning\WarningOptions::buildFromParameters(
+                array('RU'=>'Учётная запись заблокирована!', 'EN'=>'User account has been blocked!')
+            )
+        );
     }
     ?>
     <div class="form-block w-form login">
-        <form class="form-2" action="<?=$this->Url()?>?debug" method="POST">
+        <form class="form-2" action="<?=$this->Url()?>" method="POST">
             <div class="frm_center">
                 <strong class="bold-text"><?=$App->Translater($this->Properties()->getH1())?></strong>
             </div>

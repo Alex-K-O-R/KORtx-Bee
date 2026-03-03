@@ -2,10 +2,9 @@
 namespace app\dba;
 use Image;
 use app\models\AccountMDL;
-use app\utilities\inner\CIS;
 use app\utilities\inner\MathEtc;
 
-class FileDBA {//TODO: WHEN UPLOADED WITH SAME NAME, SAVE OLD
+class FileDBA {
     const UPLOAD_METHOD_Link = 'link';
     const UPLOAD_METHOD_Blob = 'blob';
     const DIRECTORY_SEPARATOR = DIRECTORY_SEPARATOR;
@@ -17,10 +16,6 @@ class FileDBA {//TODO: WHEN UPLOADED WITH SAME NAME, SAVE OLD
     protected static function BASE_DIRECTORY(){
         return self::DIRECTORY_SEPARATOR.'storage';
     }
-
-    /*    static function DOC_ROOT(){
-            return str_replace('/', self::DIRECTORY_SEPARATOR, $_SERVER['DOCUMENT_ROOT']);
-        }*/
 
     static function DIR_URL($section = null, $root = null)
     {
@@ -89,7 +84,7 @@ class FileDBA {//TODO: WHEN UPLOADED WITH SAME NAME, SAVE OLD
 
     public static function removeDirectory($dir) {
         if (is_dir($dir)) {
-            $objects = scandir($dir);
+            $objects = scandir($dir, SCANDIR_SORT_NONE);
             foreach ($objects as $object) {
                 if ($object != "." && $object != "..") {
                     if (is_dir($dir."/".$object))
@@ -108,7 +103,7 @@ class FileDBA {//TODO: WHEN UPLOADED WITH SAME NAME, SAVE OLD
             if(!is_dir($dest)){return false;}
         }
         if (is_dir($src_dir)) {
-            $objects = scandir($src_dir);
+            $objects = scandir($src_dir, SCANDIR_SORT_NONE);
             foreach ($objects as $object) {
                 if ($object != "." && $object != "..") {
                     if (is_dir($src_dir."/".$object))
@@ -136,6 +131,22 @@ class FileDBA {//TODO: WHEN UPLOADED WITH SAME NAME, SAVE OLD
             }
         }
 
+    }
+
+
+    public static function traverseDirectory(string $dir, callable $func) {
+        if (is_dir($dir)) {
+            $objects = scandir($dir, SCANDIR_SORT_NONE);
+            foreach ($objects as $object) {
+                if ($object != "." && $object != "..") {
+                    if (is_dir($dir.self::DIRECTORY_SEPARATOR.$object))
+                        self::traverseDirectory($dir.self::DIRECTORY_SEPARATOR.$object, $func);
+                    else
+                        $func($dir.self::DIRECTORY_SEPARATOR.$object);
+                }
+            }
+            $func($dir);
+        }
     }
 
 

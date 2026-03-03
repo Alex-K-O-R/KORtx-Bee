@@ -1,6 +1,5 @@
 <?php
 use app\Application;
-use app\display\nodes\Paginator\Paginator;
 use app\filters\models\GeneralFilterableModel;
 use app\pages\Page;
 use app\models\UserMDL;

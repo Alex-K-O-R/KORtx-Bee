@@ -1,7 +1,7 @@
 <?
 use app\Application;
-use app\display\nodes\Paginator\Paginator;
 use app\filters\models\GeneralFilterableModel;
+use app\nodes\others\Paginator\Paginator;
 use app\pages\Page;
 use app\models\UserMDL;
 use app\pages\Pages;
@@ -51,7 +51,8 @@ $pgMax = intval($this->Properties()->getVar('page_volume'));
                 <input type="text" name="profession" maxlength="256"
                        placeholder="<?=$App->Translater(array('RU'=>'Профессия', 'EN'=>'Profession'))?>" class="text-field-3 w-input" />
                 <select id="field" name="activated" class="select-field-2 w-select">
-                    <option value="true" selected="selected"><?=$App->Translater(array('RU'=>'Активирован', 'EN'=>'Activated'))?></option>
+                    <option value="" selected="selected"><?=$App->Translater(array('RU'=>'Любой статус', 'EN'=>'Any status'))?></option>
+                    <option value="true"><?=$App->Translater(array('RU'=>'Активирован', 'EN'=>'Activated'))?></option>
                     <option value="false"><?=$App->Translater(array('RU'=>'Не активирован', 'EN'=>'Not activated'))?></option>
                 </select>
                 <div class="div-block-25">
@@ -145,7 +146,6 @@ $pgMax = intval($this->Properties()->getVar('page_volume'));
     <?
         }
 
-    require_once $_SERVER['DOCUMENT_ROOT'].'/nodes/expansion/others/Paginator.php';
     (new Paginator())->pager($Totals, $pgMax, $page)->render(null,true,true);
     } else {?>
         <div class="form-block-3 w-form">

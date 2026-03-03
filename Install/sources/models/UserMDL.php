@@ -6,7 +6,7 @@ use com\db\FileDBA;
 use utility\DataConversion;
 use DefaultImages;
 
-class _UserMDL extends SecurityMDL {
+class UserMDL extends SecurityMDL {
     //user_info
     protected $user_id;
     protected $sec_id;

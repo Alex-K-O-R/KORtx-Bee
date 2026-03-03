@@ -5,7 +5,7 @@ use app\dba\DBAccess;
 use app\dba\DBAccessGeneric;
 use app\filters\FilterModes;
 use app\filters\ModelFilterDescription;
-use app\utilities\inner\Array_;
+use app\utilities\inner\Arrays;
 use app\utilities\inner\CIS;
 use app\utilities\inner\DataConversion;
 
@@ -16,8 +16,8 @@ interface IFilterToDbConverter {
 
 abstract class FilterConverter extends FilterToDbOperatorConverter implements IFilterToDbConverter {
     public static function SQLConditionStructureForInput($fieldnames, $sign, $values, $lang_id = null) {
-        $fieldnames = Array_::varToArray($fieldnames);
-        $values = Array_::varToArray($values);
+        $fieldnames = Arrays::varToArray($fieldnames);
+        $values = Arrays::varToArray($values);
         $result = '';
         if($count = count($fieldnames) > 0 && count($values)){
             switch ($sign) {
@@ -46,7 +46,7 @@ abstract class FilterConverter extends FilterToDbOperatorConverter implements IF
             }
             $result = '('.$result.')';
             if($lang_id)
-                return self::SQLConditionStructureForLanguageRelyingField(Array_::implode(',',$fieldnames), $sign, $values[0]);
+                return self::SQLConditionStructureForLanguageRelyingField(Arrays::implode(',',$fieldnames), $sign, $values[0]);
             else return $result;
         }
         return '';

@@ -64,15 +64,19 @@ abstract class GeneralFilterableModel {
 
 
                 $values = array();
-                if(mb_stristr($v->getGETFieldName(),',') && $key = explode(',', $v->getGETFieldName())){
+                if(mb_stristr($v->getGETFieldName() ?? '',',') && $key = explode(',', $v->getGETFieldName())){
                     foreach($key as $k){
                         $k = trim($k);
                         $values[] = CIS::l($get, $k, null);
                         $this->filter[$k] = CIS::l($get, $k, '');
                     }
                 } else {
-                    if($v->getGETFieldName()) $this->filter[$v->getGETFieldName()] = CIS::l($get, $v->getGETFieldName(), '');
-                    $values = CIS::l($get, $v->getGETFieldName(), null);
+                    $value = CIS::l($get, $v->getGETFieldName(), null);
+
+                    if($v->getGETFieldName() && !is_null($value)) {
+                        $this->filter[$v->getGETFieldName()] = $value;
+                        $values = [$value];
+                    }
                 }
 
                 if ($values && count($values) || $v->getFilterValue()) $this->processElement($values, $i, $v);

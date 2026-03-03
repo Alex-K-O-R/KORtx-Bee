@@ -1,10 +1,11 @@
 <?
-use app\display\nodes\menu\LanguageMenu;
-use app\display\nodes\menu\TopMenuGen;
+use app\nodes\menus\LanguageMenu;
+use app\nodes\menus\TopGeneralMenu;
 use app\pages\Pages;
+use app\pages\Theme;
 
 /**
- * @var $this Page
+ * @var $this Theme
  */
 $App = $this->Page()->Application();
 ?>
@@ -47,14 +48,15 @@ $App = $this->Page()->Application();
             <div class="outset">
                 <div class="header-lang-selector header-icon">
                     <?
-                    require_once $_SERVER['DOCUMENT_ROOT'] . '/nodes/expansion/menus/LanguageMenu.php';
-                    LanguageMenu::Draw($App, $App->getSupportedLanguageInfo());
+                    LanguageMenu\LanguageMenu::Draw($App, LanguageMenu\LanguageMenuOptions::buildFromParameters(
+                        $App->getSupportedLanguageInfo()
+                    ));
                     ?>
                 </div>
                 <?
-                require_once $_SERVER['DOCUMENT_ROOT'].'/nodes/expansion/menus/center/TopMenuTMPLT.php';
-                require_once $_SERVER['DOCUMENT_ROOT'].'/nodes/expansion/menus/center/TopMenuGen.php';
-                new TopMenuGen($this->Page());
+                    TopGeneralMenu\TopGeneralMenu::Draw($App, TopGeneralMenu\TopGeneralMenuOptions::buildFromParameters(
+                        $App
+                    ));
                 ?>
             </div>
         </div>

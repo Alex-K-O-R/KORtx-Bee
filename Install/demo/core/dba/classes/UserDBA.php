@@ -3,16 +3,13 @@ namespace app\dba;
 
 use app\Application;
 use app\dba\constants\DBSettings;
-use app\dba\inners\_SecurityDBA;
-use app\dba\inners\_UserDBA;
-use app\dba\inners\_LogDBA;
+use app\dba\inners\SecurityDBA;
+use app\dba\inners\LogDBA;
 use app\dba\constants\DBChanges;
-use app\models;
 use app\models\UserMDL;
 use app\utilities\inner\CIE;
-use app\utilities\inner\CIS;
 
-class UserDBA extends _UserDBA{
+class UserDBA extends inners\UserDBA {
     /** Создаёт базовый SQL запрос для получения всей информации о пользователях системы
      * @return array|bool|null|object
      */
@@ -23,8 +20,8 @@ class UserDBA extends _UserDBA{
             self::table
         ).self::AND_.
             self::fields_from('login, activated, add_date, last_login_date',
-                _SecurityDBA::table).'
-        from '.self::table.' right JOIN '._SecurityDBA::table.' on '.self::table.'.sec_id = '._SecurityDBA::table.'.sec_id ';
+                SecurityDBA::table).'
+        from '.self::table.' right JOIN '.SecurityDBA::table.' on '.self::table.'.sec_id = '.SecurityDBA::table.'.sec_id ';
     }
 
 
@@ -44,9 +41,9 @@ class UserDBA extends _UserDBA{
             , 'row');
         if ($row && $row = $row['0']) {
             if ($ModContext == null) {
-                _LogDBA::logSystemAction($this, $uid, self::EntityCode(), !$row, $row, 'Installation', 'Changed SA rights for user with id ['.$uid.']', DBChanges::auto, DBChanges::level_high);
+                LogDBA::logSystemAction($this, $uid, self::EntityCode(), !$row, $row, 'Installation', 'Changed SA rights for user with id ['.$uid.']', DBChanges::auto, DBChanges::level_high);
             } else {
-                _LogDBA::logUserAction($ModContext, !$row, $row, 'Changed SA rights for user with id ['.$uid.']', DBChanges::level_high);
+                LogDBA::logUserAction($ModContext, !$row, $row, 'Changed SA rights for user with id ['.$uid.']', DBChanges::level_high);
             }
             return $row;
         } else return null;
@@ -177,7 +174,7 @@ class UserDBA extends _UserDBA{
                 //print $row[0]." Vs "."$newFilePath"; exit;
                 FileDBA::removeFile(FileDBA::DIR_PATH($hash).$row[0]);
             }
-            _LogDBA::logUserAction($ModCntxt, $row[0], $newFilePath, 'Uploaded new photo for user: '.$UserMDL->getUserId());
+            LogDBA::logUserAction($ModCntxt, $row[0], $newFilePath, 'Uploaded new photo for user: '.$UserMDL->getUserId());
         }
     }
 
@@ -203,7 +200,7 @@ class UserDBA extends _UserDBA{
         if($delete_resource_directory) FileDBA::removeDirectory(FileDBA::DIR_PATH($UserMDL->getResourceHash()));
 
         if ($this->query('DELETE from '.self::table.' WHERE user_id = \''.$UserMDL->getUserId().'\';')) {
-            _LogDBA::logUserAction($ModificationContext, $UserMDL->getUserId(), null, 'User was removed: '.$UserMDL->getLogin(), DBChanges::level_medium);
+            LogDBA::logUserAction($ModificationContext, $UserMDL->getUserId(), null, 'User was removed: '.$UserMDL->getLogin(), DBChanges::level_medium);
             return true;
         } else return false;
     }

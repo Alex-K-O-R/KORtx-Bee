@@ -1,9 +1,10 @@
 <?php
 use app\WebUIApplication;
-use app\display\nodes\Warning\Warning;
+use app\nodes\others\Warning;
 use app\models\UserMDL;
 use app\pages\Page;
 use app\pages\Pages;
+use \app\nodes\inner\forms\editors\TextEditor;
 
 /**
  * @var Page $this
@@ -21,11 +22,18 @@ $User = $this->Properties()->getVar('user');
     <?
     if($this->Properties()->getState()==='novice'){
         ?><br/><?
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/nodes/expansion/others/Warning.php';
-        new Warning("", $App->Translater(array('RU'=>'Впервые на сайте? Пожалуйста, добавьте информацию о себе.', 'EN'=>'First time here? Please, provide some info about yourself.')));
+        Warning\Warning::Draw(
+            $App,
+            Warning\WarningOptions::buildFromParameters(
+                array(
+                    'RU'=>'Впервые на сайте? Пожалуйста, добавьте информацию о себе.',
+                    'EN'=>'First time here? Please, provide some info about yourself.'
+                )
+            )
+        );
     }
     ?>
-    <form action="<?=Pages::personal_edit?>?debug" class="ui form account-form" method="POST" enctype= "multipart/form-data">
+    <form action="<?=Pages::personal_edit?>" class="ui form account-form" method="POST" enctype= "multipart/form-data">
     <div class="tab-wrapper row no-gutters">
         <div class="tab-content active col-lg-12" style="display: block;">
 
@@ -118,9 +126,10 @@ $User = $this->Properties()->getVar('user');
                                 <?=$App->Translater(array('RU'=>'О себе (подробно)', 'EN'=>'About (details)'))?>:
                             </h4><br/>
                             <?
-                            require_once $_SERVER['DOCUMENT_ROOT'] . '/nodes/expansion/editors/TextEditor.php';
-                            new \app\display\nodes\TextEditor(
-                                'about_detailed', 'details', $User->getDAdditionalInfo());
+                            TextEditor\TextEditor::Draw(
+                                $App,
+                                TextEditor\Parameters::buildFromParameters('about_detailed', 'details', $User->getDAdditionalInfo())
+                            );
                             ?>
                         </div>
                     </div>

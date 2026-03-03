@@ -4,15 +4,13 @@ namespace app\dba\inners;
 
 use app\dba\IModelDataProvider;
 use app\dba\constants\DBSettings;
-use app\dba\Page;
 use app\dba\constants\DBChanges;
 use app\dba\DBAccess;
-use app\models\inner\_UserMDL;
-use app\dba\inners\_LogDBA;
+use app\models\inner\UserMDL;
 use app\utilities\inner\CIE;
 
 
-class _SecurityDBA extends DBAccess implements IModelDataProvider {
+class SecurityDBA extends DBAccess implements IModelDataProvider {
     const activation_hash_formula = 'md5(login ||\'---\' || sec_id)';
     const table = DBSettings::dbprfx.'_security';
     static function EntityCode($codeLength = 3){return 'sbo';}
@@ -48,7 +46,7 @@ class _SecurityDBA extends DBAccess implements IModelDataProvider {
                 ), 'row');
 
             if($row && $row = $row[0]){
-                _LogDBA::logUserAction($ModificationContext, null, $row, 'New security record is added with sec_id '.$row, DBChanges::level_medium);
+                LogDBA::logUserAction($ModificationContext, null, $row, 'New security record is added with sec_id '.$row, DBChanges::level_medium);
                 return $row;
             }
         } else return false;
@@ -70,9 +68,9 @@ class _SecurityDBA extends DBAccess implements IModelDataProvider {
             , 'row');
         if ($row && $row = $row['0']) {
             if($ModificationContext)
-                _LogDBA::logUserAction($ModificationContext,'', true, 'Account ['.$row.'] was activated', DBChanges::level_medium);
+                LogDBA::logUserAction($ModificationContext,'', true, 'Account ['.$row.'] was activated', DBChanges::level_medium);
             else
-                _LogDBA::logSystemAction($this, $sid, self::EntityCode(), '', true, -1, 'Account ['.$row.'] was activated', DBChanges::auto, DBChanges::level_medium);
+                LogDBA::logSystemAction($this, $sid, self::EntityCode(), '', true, -1, 'Account ['.$row.'] was activated', DBChanges::auto, DBChanges::level_medium);
             return $row;
         } else return null;
     }
@@ -136,13 +134,13 @@ class _SecurityDBA extends DBAccess implements IModelDataProvider {
 
     /** Возвращает информацию о пользователе $uid
      * @param $uid
-     * @return _UserMDL
+     * @return UserMDL
      */
     public function getSecuRecInfoBySecuRecId($sid) {
         $sid = intval($sid);
         return $this->query(
             self::GLOBAL_getAllForAllSQL().
-                'WHERE '._UserDBA::table.'.sec_id = '.$sid, 'row'
+                'WHERE '.UserDBA::table.'.sec_id = '.$sid, 'row'
         );
     }
 
@@ -157,7 +155,7 @@ class _SecurityDBA extends DBAccess implements IModelDataProvider {
             $sec_id = intval($sec_id);
 
             if ($row = $this->query('DELETE from '.self::table.' WHERE sec_id = \''.$sec_id.'\' RETURNING login', 'row')) {
-                _LogDBA::logUserAction($ModificationContext, $sec_id, null, 'Security acc was deleted; '.$row[0], DBChanges::level_critical);
+                LogDBA::logUserAction($ModificationContext, $sec_id, null, 'Security acc was deleted; '.$row[0], DBChanges::level_critical);
                 return true;
             } else return false;
         } else return false;

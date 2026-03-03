@@ -125,11 +125,14 @@ class DBAccess extends DBAccessGeneric {
                             }
 
                             break;
-                        case 'arr': //DONE! TODO : Perhaps will be cool if mixed with *set* method when single collumn appears..
+                        case 'arr':
                             $list = array();
+                            $SCR = (mysqli_num_fields($myResult)===1)?true:false;; //Single Column Result
+
                             while ($row = mysqli_fetch_row($myResult)) {
-                                $list[] = $row;
+                                $list[] = ($SCR)?$row[0]:$row;
                             }
+
                             $Result = $list;
                             break;
                         case 'aff':

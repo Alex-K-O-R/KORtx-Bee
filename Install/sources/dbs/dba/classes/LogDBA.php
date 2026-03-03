@@ -7,7 +7,7 @@ use app\dba\DBModificationContext;
 use app\dba\constants\DBChanges;
 use app\utilities\inner\CIE;
 
-class _LogDBA {
+class LogDBA {
     const table = DBSettings::dbprfx.'_log';
 
     /**
@@ -85,7 +85,7 @@ class _LogDBA {
             $entType = CIE::l($entType);
             $entId = intval($entId);
             $limit = intval($limit);
-            return $DBA->query('SELECT * FROM '._LogDBA::table.' WHERE entity_type = \''.$entType.'\' AND entity_id = '.$entId.' LIMIT '.$limit.' ORDER BY category, log_id DESC', 'arr');
+            return $DBA->query('SELECT * FROM '.LogDBA::table.' WHERE entity_type = \''.$entType.'\' AND entity_id = '.$entId.' LIMIT '.$limit.' ORDER BY category, log_id DESC', 'arr');
         } else return false;
     }
 
@@ -100,7 +100,7 @@ class _LogDBA {
         if($DBA){
             $srcId = intval($srcId);
             return pg_query('SELECT DISTINCT ON(action) * FROM
-                    '._LogDBA::table.' WHERE subject_id = '.$srcId.' LIMIT '.$limit.' ORDER BY category, log_id DESC', 'arr');
+                    '.LogDBA::table.' WHERE subject_id = '.$srcId.' LIMIT '.$limit.' ORDER BY category, log_id DESC', 'arr');
         } else return false;
     }
 

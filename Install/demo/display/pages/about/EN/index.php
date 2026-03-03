@@ -46,8 +46,12 @@ $App = $this->Application();
         <li>core\dba\models - descriptions of simple and dialect-depending models;</li>
         <li>display\ - so called "views". Css, js, themes, static images, i.e. "client side";</li>
         <li>utilities\ - depending on the location of the directory, it could be inner helper classes
-            (including kernel functions), or third-party libraries that can come in handy anywhere.</li>
+            (including kernel functions), or third-party libraries that can come in handy anywhere;</li>
+        <li>nodes - additional rendering modifiers based on php, js, css; menus, editors as example. </li>
     </ul>
+        A distinction has also been made between system's and user's (extended, customized) classes by directories: ./original and ./expansion respectively.
+    </p>
+    <p>
     KORtx Bee is joyful for quick creation of a compact web application (as an example, for single board computers), and for implementing much larger complex solutions with API functions.
     Any of existing frameworks can hardly boast of such a sharp division into server and client parts.
     </p>
@@ -172,20 +176,45 @@ $App = $this->Application();
         index.php - default view containing information about missing translation, that shall be displayed, if later (tomorrow, or in a year) some other systems languages would be described and selected.
     </p>
     <h3>Views implementation.</h3>
+    <h4>Pages, templates and themes</h4>
     <p>
         Everything's related to rendering (i.e. everything that is intended for the client side) is located in display section, which has nested directories for a simple and understandable subdivision into typed directions: css, img, js, ...
     </p>
     <p>
         Attention should be paid to the next folders:
     <ul>
-        <li>general - themes are described there, as well as general templates, such as header and footer;</li>
-        <li>nodes - it contains repeating block elements based on php and js: menus, editors;</li>
-        <li>pages - directory containing pages/views being used in controllers.</li>
+        <li>general - themes (./themes/) are described there, as well as general templates, such as header and footer;</li>
+        <li>pages - directory containing pages/views being used in controllers to generate display results with the selected design theme.</li>
     </ul>
+    </p>
+    <p>
+        Themes designed as sets of stylesheets and scripts. These files are shared across all site segments that use a specific theme. Furthermore, stylesheets and scripts from a specific theme have a strict priority and loading order, according to the theme's description file. Themes are described within the \app\pages\PageThemes trait using the LoadThemes(...) method.
     </p>
     <p>
         In any view's body, depending on the context, Page object is available in $this pointer. The Page has easy-to-use tools: variable storage, status field, header/title descriptors. Through the Page properties, you can also get to the level of the Application itself.
         There are enough examples of working with the Page object even in this demo site.
+    </p>
+    <h4>Nodes</h4>
+    <p>
+        Website pages usually contain display elements used in various segments without being involved in core functionality or modifying actual objects and data.
+        For example, these could be functional elements such as image sliders, section menus, or visual form fields for editing.
+    </p>
+    <p>
+        KORtx Bee offers a node mechanism to describe such elements.
+    </p>
+    <p>
+        Nodes should be placed outside the core and the rendering files, in a separate directory /nodes/expansion/. Any logical division into subdirectories is permitted within this folder.
+    </p>
+    <p>
+        Any typical node represents the target directory with a specific name and a nested *.php file of the same name. For example, /nodes/expansion/others/<b>Warning</b>/<b><i>Warning</i></b>.php.
+        In this folder, along with executable *.php files, you may also place *.css stylesheets and client-side javascript (*.js) files, as well as graphics resources.
+    </p>
+    <p>
+        KORtx Bee loads all nodes with the correct path descriptions automatically, right after loading the core files, yet before rendering the interface. Accordingly, stylesheets and JavaScript files are being placed at the end of page header description, i.e., after the stylesheets and scripts for the site's visual themes.
+    </p>
+    <p>
+        KORtx Bee offers two basic static classes for the node's description: app\nodes\Node and app\nodes\NodeOptions. Using these classes allows you to centralize node visualization with cache rendering results in any convenient way (see the \app\nodes\Node::Draw(...) function).
+        However, this is not a mandatory requirement &mdash; you can use arbitrary classes, as long as you follow the naming and file placement rules.
     </p>
     <h3>Directories structure.</h3>
     <p>
@@ -208,8 +237,14 @@ $App = $this->Application();
         <li>core\dba\models - descriptions of simple and dialect-depending models;</li>
         <li>display\ - so called "views". Css, js, themes, static images, i.e. "client side";</li>
         <li>utilities\ - depending on the location of the directory, it could be inner helper classes
-            (including kernel functions), or third-party libraries that can come in handy anywhere.</li>
+            (including kernel functions), or third-party libraries that can come in handy anywhere;</li>
+        <li>nodes\ - contains elements of a "wide-spread" nature based on php, js, and css, which may not be tied to a specific environment and primarily work "for rendering".</li>
     </ul>
+    </p>
+    <p>
+        For order maintenance, subdirectories are divided into original and expansion:
+        ./original - framework core files, which are highly undesirable to change, are used, among other things, for backward compatibility;
+        ./expansion - any custom KORtx Bee extensions and any additional classes, is the best place to do your magic!
     </p>
     <h3>Database interaction.</h3>
     <p>

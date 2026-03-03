@@ -41,7 +41,7 @@ html {
     width: 100%;
     font-size: 0;
     margin-bottom: 1.5vh;
- }
+}
 
 .w-form.login form .frm_center strong{
     font-size: 16px;
@@ -233,9 +233,7 @@ html {
     width: 100%;
     min-height: 1px;
     padding-right: 15px;
-    padding-left: 15px
-    padding-left: 0;
-    width: 100%;
+    padding-left: 15px;
     display: flex;
     flex-basis: max-content;
     flex-wrap: wrap;
@@ -325,7 +323,7 @@ label{display:block;margin-bottom:5px;font-weight:bold}
 .footer{
     height: 28vh;
     background-color:
-        var(--footer_color);
+            var(--footer_color);
     position: absolute;
     left: 0;
     bottom: 0;
@@ -346,7 +344,7 @@ label{display:block;margin-bottom:5px;font-weight:bold}
 }
 
 .header .logo img {
-   height: 8vh;
+    height: 8vh;
 }
 
 .header .logo span {
@@ -479,39 +477,39 @@ a{color:#007bff;
 
 
 .button-3 {
-  height: 33px;
-  margin-bottom: 30px;
-  padding: 10px 48px;
-  background-color: #48a084;
-  line-height: 10px;
+    height: 33px;
+    margin-bottom: 30px;
+    padding: 10px 48px;
+    background-color: #48a084;
+    line-height: 10px;
 }
 
 .button-3:hover {
-  background-color: #10be87;
+    background-color: #10be87;
 }
 
 .div-block-25 {
-  position: relative;
-  margin-left: 16px;
-  padding-right: 0px;
-  padding-left: 0px;
+    position: relative;
+    margin-left: 16px;
+    padding-right: 0px;
+    padding-left: 0px;
 }
 
 
 
 .form-2 {
-  margin-top: 0px;
-  padding-top: 15px;
+    margin-top: 0px;
+    padding-top: 15px;
 }
 
 .div-block-21 {
-  width: 100%;
-  margin-left: 0px;
+    width: 100%;
+    margin-left: 0px;
 }
 
 .text-field-3 {
-  height: 30px;
-  font-style: italic;
+    height: 30px;
+    font-style: italic;
     flex: 0 3 30%;
     flex-basis: 30%;
     flex-wrap: wrap;
@@ -525,63 +523,63 @@ a{color:#007bff;
 
 
 .image-12 {
-  position: absolute;
-  left: 10px;
-  top: 8px;
-  bottom: 0px;
+    position: absolute;
+    left: 10px;
+    top: 8px;
+    bottom: 0px;
 }
 
 .select-field {
-  overflow: auto;
-  height: 200px;
-  padding-bottom: 140px;
+    overflow: auto;
+    height: 200px;
+    padding-bottom: 140px;
 }
 
 .text-field-4 {
-  height: 30px;
-  font-style: italic;
+    height: 30px;
+    font-style: italic;
 }
 
 .button-2 {
-  height: 30px;
-  padding-right: 35px;
-  padding-left: 35px;
-  background-color: #48a084;
-  line-height: 10px;
-  text-align: center;
+    height: 30px;
+    padding-right: 35px;
+    padding-left: 35px;
+    background-color: #48a084;
+    line-height: 10px;
+    text-align: center;
 }
 
 .button-2:hover {
-  background-color: #10be87;
+    background-color: #10be87;
 }
 
 
 .form-block {
-  margin-top: 0px;
-  padding-right: 38px;
-  padding-left: 38px;
+    margin-top: 0px;
+    padding-right: 38px;
+    padding-left: 38px;
 }
 
 .text-field {
-  display: block;
-  margin: 0px auto 15px;
-  padding-top: 0px;
-  padding-bottom: 0px;
-  font-family: Ubuntu, Helvetica, sans-serif;
-  font-style: italic;
+    display: block;
+    margin: 0px auto 15px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    font-family: Ubuntu, Helvetica, sans-serif;
+    font-style: italic;
 }
 
 
 
 .bold-text {
-  margin-top: 0px;
+    margin-top: 0px;
 }
 
 .select-field-2 {
-  height: 30px;
-  padding-top: 0px;
-  padding-bottom: 0px;
-  line-height: 0px;
+    height: 30px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    line-height: 0px;
     flex: 0 3 30%;
     flex-basis: 30%;
     flex-wrap: wrap;
@@ -712,14 +710,14 @@ a{color:#007bff;
 
 
 .user-control .sep .col-act div, .user-control .sep .col-blk div, .user-control .sep .col-del div {
-     display: inline-block;
-     width: 100%;
-     text-align: center;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
     white-space: nowrap;
     overflow: hidden;
     display: inline-block;
     text-overflow: "..";
- }
+}
 
 
 
@@ -749,22 +747,22 @@ a{color:#007bff;
 }
 
 .text-field-5 {
-  display: inline-block;
-  width: 10%;
-  float: left;
-  clear: none;
-  border-left-color: transparent;
-  text-align: right;
+    display: inline-block;
+    width: 10%;
+    float: left;
+    clear: none;
+    border-left-color: transparent;
+    text-align: right;
 }
 
 .text-field-6 {
-  clear: both;
-  font-style: italic;
+    clear: both;
+    font-style: italic;
 }
 
 .div-block-31 {
     display: flex;
-    flex-wrap: none;
+    flex-wrap: unset;
     text-align: center;
     width: 100%;
     min-width: 100%;

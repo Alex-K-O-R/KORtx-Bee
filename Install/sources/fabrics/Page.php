@@ -3,10 +3,13 @@ namespace app\pages;
 
 use app\Application;
 use app\constants\PageResources;
-use app\utilities\inner\Array_;
+use app\Loader;
+use app\nodes\NodeManager;
+use app\utilities\inner\Arrays;
 use app\utilities\inner\CIS;
 
-class _Page {
+class Page {
+    use PageThemes;
     function __construct($parent, $url = null, $urlProperties = null)
     {
         $this->url = $url;
@@ -15,6 +18,7 @@ class _Page {
 
         $this->themes = new ThemeRuler();
         $this->LoadThemes();
+        $this->LoadNodes();
 
         $this->pageProps = new PageProps();
         $this->Application = $parent;
@@ -23,9 +27,13 @@ class _Page {
     /**
      * @var $this Page
      */
-    public function LoadThemes(): void
+    public function LoadNodes(): void
     {
-        return;
+        NodeManager::loadNodes();
+        //Loader::load($_SERVER['DOCUMENT_ROOT'].'/nodes', '.php', ['/(.*)original(.*)/','/(.*)TMPLT(.*)/', '/Menu(.*)/','/(.*)expansion(.*)/']);
+        foreach (NodeManager::getPhps() as $php) {
+            require_once $php;
+        }
     }
 
     private $url;
@@ -133,7 +141,7 @@ class _Page {
 
         $info = array_slice($info, 0, count($info)-1);
         $info = array_filter($info);
-        $info = Array_::implode('/', $info);
+        $info = Arrays::implode('/', $info);
         $info = PageResources::getFullPathToPages().$info;
         $this->viewInfo["base"] = $info;
 

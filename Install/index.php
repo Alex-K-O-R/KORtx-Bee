@@ -6,7 +6,7 @@ $usrCrPath = $_SERVER['DOCUMENT_ROOT'].'/core/expansion'; // this is extensions 
 $rootCrPath = $_SERVER['DOCUMENT_ROOT'].'/core/original'; // this is auto generated files by the installation, files there should not be changed
 
 
-require_once($InstallationSourcePath . '/sources/dbs/dba/classes/_FileDBA.php');
+require_once($InstallationSourcePath . '/sources/dbs/dba/classes/FileDBA.php');
 require_once($InstallationSourcePath.'/sources/utilities/CIES.php');
 require_once($InstallationSourcePath.'/constants/AppSettings.php');
 require_once($InstallationSourcePath.'/demo/core/dba/DBALoader.php');
@@ -118,8 +118,8 @@ switch($step){
             }
 
             $nodes_src = $InstallationSourcePath.'/sources/nodes';
-            FileDBA::createDirectoryWithRights($_SERVER['DOCUMENT_ROOT'].'/nodes/original');
-            FileDBA::copyRecursive($nodes_src, $_SERVER['DOCUMENT_ROOT'].'/nodes/original');
+            FileDBA::createDirectoryWithRights($_SERVER['DOCUMENT_ROOT'].'/nodes');
+            FileDBA::copyRecursive($nodes_src, $_SERVER['DOCUMENT_ROOT'].'/nodes');
 
             require_once($InstallationSourcePath.'/steps/2/index.php');
         } else {
@@ -288,6 +288,8 @@ switch($step){
         copy($InstallationSourcePath.'/sources/Application.php', $rootCrPath.'/Application.php');
         copy($InstallationSourcePath.'/sources/AppFilter.php', $rootCrPath.'/AppFilter.php');
         copy($InstallationSourcePath.'/sources/ModelProcessor.php', $rootCrPath.'/ModelProcessor.php');
+        copy($InstallationSourcePath.'/sources/NodeManager.php', $rootCrPath.'/NodeManager.php');
+        copy($InstallationSourcePath.'/sources/VariablesContainer.php', $rootCrPath.'/VariablesContainer.php');
 
         $display_path = $_SERVER['DOCUMENT_ROOT'].'/display';
         FileDBA::createDirectoryWithRights($display_path);

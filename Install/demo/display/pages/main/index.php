@@ -37,6 +37,28 @@ $App = $this->Application();
                         <h2><?=$App->Translater(array('RU'=>'Краткая история развития KORtx Bee', 'EN'=>'Some sketchy history of KORtx Bee development'))?></h2>
                         <div class="scroll-y">
                             <div class="row">
+                                <h3><img src="/Install/demo/display/img/icons/date.png" />2026</h3>
+                                <div class="text-year">
+                                    <span class="location"><img src="/Install/demo/display/img/icons/map.png">
+                                        <?=$App->Translater(array('RU'=>'Кыргызстан, Бишкек', 'EN'=>'Bishkek, Kyrgyzstan'))?>
+                                    </span><br>
+                                    <span class="event"><img src="/Install/demo/display/img/icons/head.png">
+                                        <?=$App->Translater(array('RU'=>'Реорганизовано размещение исходных кодов и пользовательских компонентов. Добавлены ноды как инструмент для описания часто используемых инфоблоков, повторяющихся на страницах сайта.'
+                                        , 'EN'=>'Reorganisation of placement for the source files and custom parts. Introduction of the nodes to describe widely spread infoblocks, repeating across the site.'))?>
+                                    </span>
+                                </div>
+                                <div class="item__img img-year">
+                                    <img src="/Install/demo/display/img/history/26/7.jpg" />
+                                </div>
+                            </div>
+                            <div class="row divider">
+                                <div>
+                                    <i class="fas fa-angle-up"></i>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
                                 <h3><img src="/Install/demo/display/img/icons/date.png" />2022</h3>
                                 <div class="text-year">
                                     <span class="location"><img src="/Install/demo/display/img/icons/map.png">
@@ -128,7 +150,7 @@ $App = $this->Application();
                                     </span>
                                 </div>
                                 <div class="item__img img-year">
-                                    <img src="/Install/demo/display/img/history/15/3.JPG" />
+                                    <img src="/Install/demo/display/img/history/15/3.jpg" />
                                 </div>
                             </div>
                             <div class="row divider">

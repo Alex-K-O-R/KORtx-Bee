@@ -4,7 +4,7 @@ namespace app\dba;
 
 use app\dba\DBAccess;
 use app\models\inner\DynamicsModelContainer;
-use app\utilities\inner\Array_;
+use app\utilities\inner\Arrays;
 use app\utilities\inner\CIE;
 use app\utilities\inner\CIS;
 
@@ -23,7 +23,7 @@ class ModelProcessor {
         //if(is_object($SQLResArr) || is_array($SQLResArr)&&CIS::l($SQLResArr, 0)&&is_object($SQLResArr[0])){return $SQLResArr;}
         // Доп. защита от левака <end>
 
-        $this->SourceSQLResArr = (Array_::checkIfArrayIsMultidimensional($SQLResArr))?$SQLResArr:array($SQLResArr);
+        $this->SourceSQLResArr = (Arrays::checkIfArrayIsMultidimensional($SQLResArr))?$SQLResArr:array($SQLResArr);
         $this->process($ProcessModelName::getDynamicFieldsIndexes());
         $tmp = array();
         foreach($this->SourceSQLResArr as &$z){

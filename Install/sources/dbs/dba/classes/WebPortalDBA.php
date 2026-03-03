@@ -3,13 +3,9 @@ namespace app\dba\inners;
 
 use app\dba\constants\DBSettings;
 use app\dba\DBAccess;
-use app\dba\DBModificationContext;
-use app\dba\constants\DBChanges;
-use app\utilities\inner\CIE;
 use app\utilities\inner\CIS;
-use app\Application;
 
-class _WebPortalDBA extends DBAccess {
+class WebPortalDBA extends DBAccess {
     const table_languages = DBSettings::dbprfx.'_languages';
     const table_geo = DBSettings::dbprfx.'_geography_common';
     const table_last_visits = DBSettings::dbprfx.'_last_seen';

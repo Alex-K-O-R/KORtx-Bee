@@ -7,13 +7,13 @@ use app\dba\constants\DBSettings;
 use app\dba\Page;
 use app\dba\constants\DBChanges;
 use app\dba\DBAccess;
-use app\dba\inners\_LogDBA;
+use app\dba\inners\LogDBA;
 use app\models;
-use app\utilities\inner\Array_;
+use app\utilities\inner\Arrays;
 use app\utilities\inner\CIE;
 use app\utilities\inner\CIS;
 
-class _UserDBA extends _SecurityDBA implements IModelDataProvider {
+class UserDBA extends SecurityDBA implements IModelDataProvider {
     const table = DBSettings::dbprfx.'_e_user_info';
     static function EntityCode($codeLength = 3){return 'usr';}
 
@@ -27,8 +27,8 @@ class _UserDBA extends _SecurityDBA implements IModelDataProvider {
             self::table
         ).self::AND_.
             self::fields_from('login, activated, add_date, last_login_date',
-                _SecurityDBA::table).'
-        from '._UserDBA::table.' right JOIN '._SecurityDBA::table.' on '._UserDBA::table.'.sec_id = '._SecurityDBA::table.'.sec_id ';
+                SecurityDBA::table).'
+        from '.UserDBA::table.' right JOIN '.SecurityDBA::table.' on '.UserDBA::table.'.sec_id = '.SecurityDBA::table.'.sec_id ';
     }
 
 
@@ -50,11 +50,11 @@ class _UserDBA extends _SecurityDBA implements IModelDataProvider {
                     , 'row');
 
                 if($row && $row = $row[0]){
-                    _LogDBA::logUserAction($ModificationContext, null, $row, 'New user is added with id '.$row, DBChanges::level_medium);
+                    LogDBA::logUserAction($ModificationContext, null, $row, 'New user is added with id '.$row, DBChanges::level_medium);
                     return $row;
                 }
             } else {
-                _LogDBA::logUserAction($ModificationContext, null, $secId, 'Failed to create new user with login '.$login, DBChanges::level_high);
+                LogDBA::logUserAction($ModificationContext, null, $secId, 'Failed to create new user with login '.$login, DBChanges::level_high);
                 return false;
             }
         } else return false;
@@ -73,12 +73,12 @@ class _UserDBA extends _SecurityDBA implements IModelDataProvider {
                 if(CIE::l($DynStrIndex) && $prevVal = self::getStringDynamicsByStringId($lang_id, $DynStrIndex, $uid)) {
                     if($prevVal && $prevVal[0][2]!=$newValue){
                         self::updateDynamicStringById($DynStrIndex, $lang_id, $newValue);
-                        _LogDBA::logUserAction($ModCntxt, $prevVal[0][2], $newValue, 'Property was updated ['.$DynStrLinkColumnLogName.'] for user', DBChanges::level_low);
+                        LogDBA::logUserAction($ModCntxt, $prevVal[0][2], $newValue, 'Property was updated ['.$DynStrLinkColumnLogName.'] for user', DBChanges::level_low);
                     }
                 } else {
                     $newStrKey = self::addDynamicString(self::EntityCode(), $lang_id, $newValue, $DynStrIndex);
                     $this->query('UPDATE '.self::table.' SET '.$DynStrLinkColumn.' =\''.$newStrKey.'\' WHERE user_id = '.$uid);
-                    _LogDBA::logUserAction($ModCntxt, '', $newValue, 'Property description created ['.$DynStrLinkColumnLogName.'] for user and language ('.$lang_id.')', DBChanges::level_low);
+                    LogDBA::logUserAction($ModCntxt, '', $newValue, 'Property description created ['.$DynStrLinkColumnLogName.'] for user and language ('.$lang_id.')', DBChanges::level_low);
                 }
             } else {
                 if($DynStrIndex){
@@ -86,7 +86,7 @@ class _UserDBA extends _SecurityDBA implements IModelDataProvider {
                     $this->query('UPDATE '.self::table.' SET '.$DynStrLinkColumn.' =
                                 (CASE WHEN EXISTS(SELECT string_id from '.DBAccess::table.' WHERE string_id = '.$DynStrLinkColumn.' LIMIT 1) then '.$DynStrLinkColumn.' else NULL end)
                                 WHERE user_id = '.$uid);
-                    _LogDBA::logUserAction($ModCntxt, $was, $newValue, 'Property was deleted ['.$DynStrLinkColumnLogName.'] for user', DBChanges::level_low);
+                    LogDBA::logUserAction($ModCntxt, $was, $newValue, 'Property was deleted ['.$DynStrLinkColumnLogName.'] for user', DBChanges::level_low);
                 }
             }
         } else {return null;}
@@ -105,7 +105,7 @@ class _UserDBA extends _SecurityDBA implements IModelDataProvider {
             $login = $this->escape_string($login);
             return $this->query(
                 $this->GLOBAL_getAllForAllSQL().
-                    'WHERE '._SecurityDBA::table.'.login = \''.$login.'\'', 'row'
+                    'WHERE '.SecurityDBA::table.'.login = \''.$login.'\'', 'row'
             );
         }
     }
@@ -123,13 +123,13 @@ class _UserDBA extends _SecurityDBA implements IModelDataProvider {
         $pageSize = intval($pageSize);
 
         if($uids && !is_string($uids)){
-            $uids = Array_::varToArray($uids);
+            $uids = Arrays::varToArray($uids);
             $uids = array_map(function($a){return intval($a);}, $uids);
         }
         $PageObject = new Page('last_login_date', $pageNum, $pageSize, 'DESC');
         $query = $this->GLOBAL_getAllForAllSQL().
             ' WHERE 1=1 '.
-            (CIE::l($uids)?(' AND '.self::table.'.user_id IN (' .(is_string($uids) ? $uids : Array_::implode(',', $uids)) . ')'):'')
+            (CIE::l($uids)?(' AND '.self::table.'.user_id IN (' .(is_string($uids) ? $uids : Arrays::implode(',', $uids)) . ')'):'')
             .(($Filter===null)?'':$Filter->getResultSQLConditions());
 
         $res = $this->query($query, 'arr', $PageObject);
@@ -144,12 +144,12 @@ class _UserDBA extends _SecurityDBA implements IModelDataProvider {
      */
     public function getCountTopUserSQL($Filter=null, $uids=null){
         if($uids && !is_string($uids)){
-            $uids = Array_::varToArray($uids);
+            $uids = Arrays::varToArray($uids);
             $uids = array_map(function($a){return intval($a);}, $uids);
         }
         $query = $this->GLOBAL_getAllForAllSQL().
             ' WHERE 1=1 '.
-            (CIE::l($uids)?(' AND '.self::table.'.user_id IN (' .(is_string($uids) ? $uids : Array_::implode(',', $uids)) . ')'):'')
+            (CIE::l($uids)?(' AND '.self::table.'.user_id IN (' .(is_string($uids) ? $uids : Arrays::implode(',', $uids)) . ')'):'')
             .(($Filter===null)?'':$Filter->getResultSQLConditions());
 
         $res = $this->query($query, 'aff');
@@ -191,7 +191,7 @@ class _UserDBA extends _SecurityDBA implements IModelDataProvider {
         $userId = intval($userId);
         $row = $this->historicalUpdate(self::table, 'is_blocked', $newBlockState, 'user_id', $userId, null);
         if($row && $row[0]){
-            _LogDBA::logUserAction($ModificationContext, $row, $newBlockState, "User block was changed for id ".$userId, DBChanges::level_high);
+            LogDBA::logUserAction($ModificationContext, $row, $newBlockState, "User block was changed for id ".$userId, DBChanges::level_high);
             return $newBlockState;
         }
     }

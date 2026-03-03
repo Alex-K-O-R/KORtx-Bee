@@ -2,40 +2,8 @@
 namespace app\utilities\inner;
 
 use app\utilities\inner\CIE;
-class Array_ {
-    public static function startsWith(&$haystack, $needle, $removePrefix = false)
-    {
-        $length = mb_strlen($needle);
-        $res = (mb_substr($haystack, 0, $length) == $needle);
-        if($res && $removePrefix){
-            $haystack = mb_substr($haystack, mb_strlen($needle), mb_strlen($haystack)-mb_strlen($needle));
-        }
-        return $res;
-    }
 
-    public static function endsWith(&$haystack, $needle, $removeSuffix = false)
-    {
-        $length = mb_strlen($needle);
-        $res = $length === 0 ||
-            (mb_substr($haystack, -$length) == $needle);
-
-        if($res && $removeSuffix){
-            $haystack = mb_substr($haystack, 0, -mb_strlen($needle));
-        }
-        return $res;
-    }
-
-    public static function iTrimmedEquals(&$haystack, $needle, $removePrefix = false)
-    {
-        if(mb_strlen(trim($haystack)) !== mb_strlen(trim($needle))) return false;
-
-        $res = (mb_strtolower(trim($haystack)) == mb_strtolower(trim($needle)));
-        if($res && $removePrefix){
-            $haystack = mb_substr($haystack, mb_strlen($needle), mb_strlen($haystack)-mb_strlen($needle));
-        }
-        return $res;
-    }
-
+class Arrays {
     public static function FilterArrayByKeyName($Array, $filter, $needle, $skipEmpties = false, $preserveSuffixes = false){
         if(count($Array)===0){return null;}
         $tmp = array();
@@ -67,15 +35,9 @@ class Array_ {
         return $array;
     }
 
-    public static function getLastPartAfterDelimeter($stringWDelimeters, $delimeter = '-'){
-        if($stringWDelimeters === null){return null;}
-        $stringWDelimeters = explode($delimeter, $stringWDelimeters);
-        return end($stringWDelimeters);
-    }
-
     public static function arrayAssocToPlainWithIndexes(&$arr){
         foreach($arr as $k=>$val){
-            $arr[Array_::getLastPartAfterDelimeter($k)] = $val;
+            $arr[Strings::getLastPartAfterDelimeter($k)] = $val;
             unset($arr[$k]);
         }
         return $arr;
@@ -93,7 +55,7 @@ class Array_ {
 
         //foreach($arr as $rec){
         foreach($mean_prefixes as $prfx){
-            $modified_recs += Array_::FilterArrayByKeyName($arr, 'app\utilities\inner\Array_::startsWith', $prfx, false, true);
+            $modified_recs += Arrays::FilterArrayByKeyName($arr, 'Strings::startsWith', $prfx, false, true);
         }
 
         return $modified_recs;
@@ -104,10 +66,10 @@ class Array_ {
         $res = array();
 
         foreach($arr as $k => $rec){
-            if(Array_::endsWith($k, '-new-delete')){
+            if(Strings::endsWith($k, '-new-delete')){
                 unset($arr[$k]);
-            } else if (Array_::endsWith($k, '-delete', true)){
-                $res[Array_::getLastPartAfterDelimeter($k)] = $rec;
+            } else if (Strings::endsWith($k, '-delete', true)){
+                $res[Strings::getLastPartAfterDelimeter($k)] = $rec;
             }
         }
 
@@ -115,18 +77,17 @@ class Array_ {
 
     }
 
-
     public static function extractAddRecords(&$arr){
-        $InformationsToAdd = Array_::FilterArrayByKeyName($arr, 'app\utilities\inner\Array_::endsWith', '-new', false);
+        $InformationsToAdd = Arrays::FilterArrayByKeyName($arr, 'Strings::endsWith', '-new', false);
         $res = array();
         foreach($InformationsToAdd as $k => $rec){
-            $new_k = Array_::getLastPartAfterDelimeter($k);
+            $new_k = Strings::getLastPartAfterDelimeter($k);
             if(!CIS::l($res, $new_k)){
-                $res[$new_k] = Array_::FilterArrayByKeyName($InformationsToAdd, 'app\utilities\inner\Array_::endsWith', '-'.$new_k, false);;
+                $res[$new_k] = Arrays::FilterArrayByKeyName($InformationsToAdd, 'Strings::endsWith', '-'.$new_k, false);;
             } else continue;
         }
 
-        return $res;//array_unique(array_map('utility\Array_::getLastPartAfterDelimeter', array_keys($InformationsToAdd)));
+        return $res;
     }
 
     public static function implode($a, $b){
